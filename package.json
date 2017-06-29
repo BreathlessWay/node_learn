@@ -9,8 +9,10 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "cheerio": "^1.0.0-rc.1",
     "express": "^4.15.3",
     "formidable": "^1.1.1",
+    "superagent": "^3.5.2",
     "utility": "^1.12.0"
   }
 }
