@@ -21,7 +21,7 @@ const upload = (response, postData) => {
   response.writeHead(200, {
     'Content-type': 'text/plain'
   });
-  response.write(querystring.parse(postData).text);
+  response.write(querystring.parse(postData).name);
   response.end();
 };
 
