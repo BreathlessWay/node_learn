@@ -8,6 +8,7 @@ const postData = querystring.stringify({
   'name': 'BreathlessWay'
 });
 
+//请求的是已启动的服务器，模拟浏览器访问
 const options = {
   host: 'localhost',
   port: 6586,
