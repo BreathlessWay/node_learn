@@ -9,8 +9,8 @@ const postData = querystring.stringify({
 });
 
 const options = {
-  host: '127.0.0.1',
-  port: 8080,
+  host: 'localhost',
+  port: 6586,
   path: '/upload',
   method: 'post',
   headers: {
@@ -32,7 +32,7 @@ const req = http.request(options, response => {
 });
 
 req.on('error', (error) => {
-  console.log({error});
+  console.log({error: error.message});
 });
 
 req.write(postData);

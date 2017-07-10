@@ -4,7 +4,7 @@
 const http = require('http');
 const fs = require('fs');
 
-http.get('http://www.facebook.cn/', data => {
+http.get('http://localhost:8088/', data => {
   data.setEncoding('utf8');
   let rawData = '';
   data.on('data', (chunk) => {
