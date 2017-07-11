@@ -2,7 +2,7 @@
  * Created by Administrator on 2017/7/11.
  */
 const mongoose = require('mongoose');
-mongoose.Promise = require('q').Promise;
+mongoose.Promise = require('q').Promise; //为mongoose添加promise
 mongoose.connect('mongodb://localhost/test', {
   useMongoClient: true
   /* other options */
