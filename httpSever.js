@@ -7,6 +7,7 @@ const cheerio = require('cheerio');
 //   response.writeHead(200, {
 //     'Content-Type': 'text/plain'
 //   });
+//   console.log(new Date());
 //   response.write('what happened');
 //   response.end();
 // }).listen(8080, () => {
@@ -27,6 +28,7 @@ const cheerio = require('cheerio');
 // });
 // req.write('fff');
 // req.end();
+
 const getNode = (url) => {
   superagent
       .get(url)
@@ -41,8 +43,21 @@ const getNode = (url) => {
         const nextLink = $('.next-design-link a').attr('href');
         const params = {title: $('#content h1').text(), nextLink};
         fs.appendFile('javascript.json', JSON.stringify(params) + ',');
+        const img = $('#content img');
+        img.each((index, ele) => {
+          const imgSrc = $(ele).attr('src');
+          superagent
+              .get(imgSrc)
+              .end((req, res) => {
+                fs.readFile('1.jpg', res.body, (err) => {
+                  console.log(err);
+                });
+              });
+        });
         nextLink ? getNode(nextLink) : console.log('没有更多');
       });
 };
 
 getNode('http://www.runoob.com/nodejs/nodejs-stream.html');
+
+// console.log(process);
