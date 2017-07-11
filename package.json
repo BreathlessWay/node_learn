@@ -15,6 +15,8 @@
     "express": "^4.15.3",
     "formidable": "^1.1.1",
     "mkdirp": "^0.5.1",
+    "mongoose": "^4.11.1",
+    "q": "^1.5.0",
     "superagent": "^3.5.2",
     "utility": "^1.12.0"
   }
