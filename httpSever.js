@@ -2,6 +2,7 @@ const http = require('http');
 const superagent = require('superagent');
 const fs = require('fs');
 const cheerio = require('cheerio');
+const mkdirp = require('mkdirp');
 
 // http.createServer((request, response) => {
 //   response.writeHead(200, {
@@ -46,18 +47,49 @@ const getNode = (url) => {
         const img = $('#content img');
         img.each((index, ele) => {
           const imgSrc = $(ele).attr('src');
+          const imgN = imgSrc.split('/');
+          const imgName = imgN[imgN.length - 1];
           superagent
               .get(imgSrc)
               .end((req, res) => {
-                fs.readFile('1.jpg', res.body, (err) => {
-                  console.log(err);
-                });
+                if (res) {
+                  fs.writeFile(`./img/${imgName}`, res.body);
+                }
               });
         });
         nextLink ? getNode(nextLink) : console.log('没有更多');
       });
 };
+mkdirp('./img', err => {
+  console.log(err);
+});
+getNode('http://www.runoob.com/nodejs/nodejs-tutorial.html');
 
-getNode('http://www.runoob.com/nodejs/nodejs-stream.html');
+// const getImg = (url) => {
+//   superagent
+//       .get(url)
+//       .end((request, response) => {
+//         fs.createWriteStream('1.jpg').write(response.body);
+//       });
+// };
+//
+// getImg('http://www.runoob.com/wp-content/uploads/2014/03/nodejs-require.jpg');
 
-// console.log(process);
+// function saveImg(url) {
+//   http.get(url, function(res) {
+//     res.setEncoding('binary');
+//     var data = '';
+//     res.on('data', function(chunk) {
+//       data += chunk;
+//     });
+//     res.on('end', function() {
+//       fs.writeFile('1.jpg', data, 'binary', function(err) {
+//         if (err) throw err;
+//       });
+//     });
+//   }).on('error', function(e) {
+//     console.log('error' + e);
+//   });
+// }
+//
+// saveImg('http://www.runoob.com/wp-content/uploads/2014/03/nodejs-require.jpg');
