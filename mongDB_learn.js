@@ -8,6 +8,13 @@ mongoose.connect('mongodb://localhost/test', {
   /* other options */
 });
 
+const db = mongoose.connection;
+db.on('error', console.error.bind(console, 'connection error:'));
+db.once('open', function() {
+  // we're connected!
+  console.log('link');
+});
+
 const Cat = mongoose.model('Cat', {name: String});
 const kitty = new Cat({name: 'ggg'});
 kitty.save()
