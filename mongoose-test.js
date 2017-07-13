@@ -17,8 +17,15 @@ db.once('open', () => {
 });
 
 const TestSchema = mongoose.Schema({
-  title: String,
-  content: String
+  title: {
+    type: String,
+    default: ''
+  },
+  content: String,
+  desc: {
+    author: String,
+    age: Number
+  }
 });
 
 TestSchema.methods.layout = function() {
@@ -29,7 +36,11 @@ const TestModal = mongoose.model('mongoose', TestSchema);
 
 const testData = new TestModal({
   title: 'morning',
-  content: 'this is mongoose test'
+  content: 'this is mongoose test',
+  desc: {
+    author: 'lily',
+    age: 23
+  }
 });
 
 testData.save()
@@ -44,3 +55,7 @@ testData.save()
       mongoose.disconnect();
       console.log('link finish');
     });
+
+TestModal.find({_id: '596760bcab613a083ccbcbb3'}, (err, res) => {
+  console.log({res});
+});
