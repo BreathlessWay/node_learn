@@ -33,38 +33,43 @@ const mkdirp = require('mkdirp');
 const getNode = (url) => {
   superagent
       .get(url)
-      .set('Referer', url)
-      .set('User-Agent',
-          'Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/45.0.2454.101 Safari/537.36 QIHU 360SE')
-      .set('Cookie',
-          'CNZZDATAWAP=652679704-1498989199-http%3A%2F%2Fm.91danji.com; cna=3UQjEB5ijhkCAWVWDANKkmlz')
-      .end((request, response) => {
+      .set({
+        'Origin': 'http://www.runoob.com',
+        'Referer': url,
+        'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/45.0.2454.101 Safari/537.36',
+        'Cookie': 'UM_distinctid=15ac5be8d990-09cd78761-3b664008-1fa400-15ac5be8d9a373; CNZZDATA5578006=cnzz_eid%3D1249371290-1481518241-https%253A%252F%252Fwww.baidu.com%252F%26ntime%3D1495438955; Hm_lvt_8e2a116daf0104a78d601f40a45c75b4=1498619058,1499061464; Hm_lpvt_8e2a116daf0104a78d601f40a45c75b4=1499649174; SERVERID=c43b07a1f37a8a7217ab8c689727ffd0|1499649180|1499649180'
+      })
+      .on('error', err => {
+        console.log(err);
+      })
+      .end((error, response) => {
         const $ = cheerio.load(response.text);
-        // const nextLink = $('.next-design-link a').attr('href');
-        // const params = {title: $('#content h1').text(), nextLink};
-        // fs.appendFile('javascript.json', JSON.stringify(params) + ',');
-        const img = $('.tpc_content.do_not_catch img');
+        const nextLink = $('.next-design-link a').attr('href');
+        const params = {title: $('#content h1').text(), nextLink};
+        fs.appendFile('javascript.json', JSON.stringify(params) + ',');
+        const img = $('#content img');
         img.each((index, ele) => {
           const imgSrc = $(ele).attr('src');
           const imgN = imgSrc.split('/');
           const imgName = imgN[imgN.length - 1];
           superagent
               .get(imgSrc)
-              .end((req, res) => {
+              .on('error', err => {
+                // console.log(err);
+              })
+              .end((err, res) => {
                 if (res) {
                   fs.writeFile(`./img/${imgName}`, res.body);
                 }
               });
         });
-        // nextLink ? getNode(nextLink) : console.log('没有更多');
+        nextLink ? getNode(nextLink) : console.log('没有更多');
       });
 };
 mkdirp('./img', err => {
   console.log(err);
 });
-setInterval(() => {
-  getNode('http://cl.ps7.win/htm_data/7/1707/2511777.html');
-}, 1000);
+getNode('http://www.runoob.com/nodejs/nodejs-tutorial.html');
 
 // const getImg = (url) => {
 //   superagent
