@@ -17,9 +17,15 @@ const app = express();
 
 app.use(express.static('public'));
 
-app.get('/', (request, response) => {
-  response.send('hello world');
-}).listen(3000, err => {
-  console.log(err);
-  console.log('server is running');
+app.get('/', function(req, res) {
+  res.send('Hello World');
+});
+
+const server = app.listen(8081, function() {
+
+  const host = server.address().address;
+  const port = server.address().port;
+
+  console.log('Example app listening at http://%s:%s', host, port);
+
 });
