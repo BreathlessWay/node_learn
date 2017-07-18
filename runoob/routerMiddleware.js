@@ -1,6 +1,15 @@
 const express = require('express');
 const app = express();
 const router = express.Router();
+const cookieParser = require('cookie-parser');
+const bodyParser = require('body-parser');
+
+app.use(cookieParser());
+// parse application/x-www-form-urlencoded
+app.use(bodyParser.urlencoded({extended: false}));
+
+// parse application/json
+app.use(bodyParser.json());
 
 router.use((request, response, next) => {
   console.log('all middleware');
@@ -26,6 +35,10 @@ router.get('/user/:uuid', (request, response) => {
 });
 
 app.use('/', router);
+
+app.get('/', (request, response) => {
+  response.send('all get');
+});
 
 app.listen(3002, () => {
   console.log('server is running on http://localhost:3002');
