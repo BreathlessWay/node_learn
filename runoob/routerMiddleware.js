@@ -36,6 +36,11 @@ router.get('/user/:uuid', (request, response) => {
 
 app.use('/', router);
 
+app.use((err, request, response, next) => {
+  console.log(err);
+  response.status(500).send({error: err});
+});
+
 app.get('/', (request, response) => {
   response.send('all get');
 });
