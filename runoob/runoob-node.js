@@ -1,20 +1,30 @@
 /**
  * Created by Admin on 2017/7/14.
  */
-const os = require('os');
-const path = require('path');
-const dns = require('dns');
-console.log(path.resolve('', 'index.js'));
+// const os = require('os');
+// const path = require('path');
+// const dns = require('dns');
+// console.log(path.resolve('', 'index.js'));
+//
+// console.log(path.join('views', 'index.js'));
+//
+// dns.lookup('sina.cn', function onLookup(err, address, family) {
+//   console.log('ip 地址:', address);
+//   dns.reverse(address, function (err, hostnames) {
+//     if (err) {
+//       console.log(err.code);
+//     }
+//
+//     console.log('反向解析 ' + address + ': ' + JSON.stringify(hostnames));
+//   });
+// });
 
-console.log(path.join('views', 'index.js'));
+const app = require('express')();
 
-dns.lookup('sina.cn', function onLookup(err, address, family) {
-  console.log('ip 地址:', address);
-  dns.reverse(address, function (err, hostnames) {
-    if (err) {
-      console.log(err.code);
-    }
+app.get('/', (res, req) => {
+  req.status(200).send('200');
+});
 
-    console.log('反向解析 ' + address + ': ' + JSON.stringify(hostnames));
-  });
+app.listen(3002, () => {
+  console.log('http://localhost:3002');
 });
