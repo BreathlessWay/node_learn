@@ -23,26 +23,26 @@
 // const dns = require('dns');
 // console.log(path.resolve('', 'index.js'));
 
-const app = require('express')();
-// console.log(path.join('views', 'index.js'));
-
-app.get('/', (res, req) => {
-  req.status(200).send('200');
-});
-
-app.listen(3002, () => {
-  console.log('http://localhost:3002');
-});
+// const app = require('express')();
+//
+// app.get('/', (res, req) => {
+//   req.status(200).send('200');
+// });
+//
+// app.listen(3002, () => {
+//   console.log('http://localhost:3002');
+// });
 
 const fs = require('fs');
+const _path = 'C:/Users/Admin/Desktop/picture';
 
-fs.readdir('C:/Users/Administrator/Desktop/Game', (err, files) => {
+fs.readdir(_path, (err, files) => {
   if (err) throw err;
   const fileArray = [];
   files.forEach((list, index) => {
     const json = {};
     json.id = `img${index}`;
-    json.src = `C:/Users/Administrator/Desktop/Game/${list}`;
+    json.src = `${_path}/${list}`;
     fileArray.push(JSON.stringify(json));
   });
   fs.appendFile('./fileList.json', fileArray);
