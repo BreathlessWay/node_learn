@@ -4,7 +4,8 @@ const checkLogin = require('../middlewares/check').checkLogin;
 
 //获取文章列表
 router.get('/', (req, res, next) => {
-  res.send(req.session);
+  req.flash('error', '用户不存在');
+  res.send(req.flash());
 });
 
 //发表文章

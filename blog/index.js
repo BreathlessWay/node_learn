@@ -3,6 +3,7 @@ const express = require('express');
 const app = express();
 const expressSession = require('express-session');
 const favicon = require('serve-favicon');
+const flash = require('connect-flash');
 const MongoStore = require('connect-mongo')(expressSession);
 const config = require('./config/default');
 const routes = require('./routes');
@@ -26,9 +27,17 @@ app.use(expressSession({
   resave: true,
   saveUninitialized: true
 }));
+app.use(flash());
 
 // 路由
 routes(app);
+
+//统一收集错误信息
+app.use(function (req, res, next) {
+  res.locals.errors = req.flash('error');
+  res.locals.infos = req.flash('info');
+  next();
+});
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
