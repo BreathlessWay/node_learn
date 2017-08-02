@@ -5,6 +5,12 @@
         <h3 class="text-center"><%= title %></h3>
     </header>
     <section class="posts-article-edit-form">
+        <% if(success) { %>
+        <div class="alert alert-success" role="alert"><%= success %></div>
+        <% } %>
+        <% if(error) { %>
+        <div class="alert alert-danger" role="alert"><%= error %></div>
+        <% } %>
         <form method="post">
             <div class="form-group has-success has-feedback">
                 <label for="user">标题</label>

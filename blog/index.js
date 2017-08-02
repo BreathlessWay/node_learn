@@ -33,17 +33,18 @@ app.use(expressSession({
 }));
 app.use(flash());
 
-// 路由
-routes(app);
-
 console.log(process.env.NODE_ENV);
 
 //统一收集错误信息
 app.use(function (req, res, next) {
-  res.locals.errors = req.flash('error');
-  res.locals.infos = req.flash('info');
+  res.locals.user = req.session.user;
+  res.locals.success = req.flash('success').toString();
+  res.locals.error = req.flash('error').toString();
   next();
 });
+
+// 路由
+routes(app);
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {

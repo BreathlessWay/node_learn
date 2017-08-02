@@ -4,7 +4,6 @@ const checkLogin = require('../middlewares/check').checkLogin;
 
 //获取文章列表
 router.get('/', (req, res, next) => {
-  res.locals.user = req.session.user;
   res.render('posts', {
     title: '博客',
     list: [
