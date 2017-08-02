@@ -13,6 +13,7 @@ router.get('/', (req, res, next) => {
         title: 'fafa',
         desc: 'gaf',
         date: '2015-05-20',
+        author: 'faft3',
         read: 5,
         apply: 4
       },
@@ -21,6 +22,7 @@ router.get('/', (req, res, next) => {
         title: 'fafa',
         desc: 'gaf',
         date: '2015-05-20',
+        author: 'faft3',
         read: 5,
         apply: 4
       },
@@ -29,6 +31,7 @@ router.get('/', (req, res, next) => {
         title: 'fafa',
         desc: 'gaf',
         date: '2015-05-20',
+        author: 'faft3',
         read: 5,
         apply: 4
       }
@@ -43,17 +46,40 @@ router.post('/', checkLogin, (req, res, next) => {
 
 //获取新建文章页
 router.get('/create', checkLogin, (req, res, next) => {
-  res.send(req.session);
+  res.render('editArticle', {
+    title: '创建文章'
+  });
+});
+
+//获取编辑文章页
+router.get('/edit/:postId', checkLogin, (req, res, next) => {
+  res.render('editArticle', {
+    title: '编辑文章'
+  });
+});
+
+//编辑文章
+router.put('/edit/:postId', checkLogin, (req, res, next) => {
+  res.render('editArticle', {
+    title: '编辑文章'
+  });
 });
 
 //获取文章详情
 router.get('/:postId', (req, res, next) => {
-  res.send(req.session);
-});
-
-//编辑文章
-router.put('/:postId', checkLogin, (req, res, next) => {
-  res.send(req.session);
+  res.locals.user = req.session.user;
+  res.render('detailArticle', {
+    title: '文章详情',
+    content: {
+      _id: 'fa125gv364hndgh57azsf',
+      title: 'fafa',
+      desc: 'gaf',
+      date: '2015-05-20',
+      author: 'faft3',
+      read: 5,
+      apply: 4
+    }
+  });
 });
 
 //删除文章

@@ -1,0 +1,24 @@
+<%- include('header') %>
+
+<article class="posts-article-edit">
+    <header>
+        <h3 class="text-center"><%= title %></h3>
+    </header>
+    <section class="posts-article-edit-form">
+        <form method="post">
+            <div class="form-group has-success has-feedback">
+                <label for="user">标题</label>
+                <input type="email" class="form-control" name="user" id="user" placeholder="标题">
+                <span class="glyphicon glyphicon-ok form-control-feedback" aria-hidden="true"></span>
+            </div>
+            <div class="form-group">
+                <label for="self">内容</label>
+                <textarea class="form-control" rows="3" id="self" name="self"></textarea>
+            </div>
+            <input type="submit" class="btn btn-primary btn-block" value="发布">
+            <a href="/" class="btn btn-default btn-block">返回</a>
+        </form>
+    </section>
+</article>
+
+<%- include('footer') %>

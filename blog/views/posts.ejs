@@ -14,7 +14,7 @@
             <ul class="dropdown-menu">
                 <li><a href="/signin">个人中心</a></li>
                 <li role="separator" class="divider"></li>
-                <li style="margin-bottom: 3px"><a href="/signup">发表文章</a></li>
+                <li style="margin-bottom: 3px"><a href="/posts/create">发表文章</a></li>
                 <li><a href="/signout">退出</a></li>
             </ul>
             <% } %>
@@ -22,6 +22,9 @@
     </header>
     <br>
     <section class="posts-article-list">
+        <% if (list.length === 0) { %>
+        <p class="text-center">暂无文章</p>
+        <% } else { %>
         <ul>
             <% for(var i = 0,len=list.length;i < len;i++) { %>
             <li class="posts-article-list-item">
@@ -31,7 +34,11 @@
                         <%= list[i].desc %>
                     </section>
                     <aside class="posts-article-list_aside">
-                        <span><%= list[i].date %></span>
+                        <span>
+                            <%= list[i].author %>
+                            &nbsp;&nbsp;
+                            发布于：<%= list[i].date %>
+                        </span>
                         <span>
                         浏览(<%= list[i].read %>) 回复(<%= list[i].apply %>)
                     </span>
@@ -46,6 +53,7 @@
                 <li class="next"><a href="#">下一页 <span aria-hidden="true">&rarr;</span></a></li>
             </ul>
         </nav>
+        <% } %>
     </section>
 </article>
 

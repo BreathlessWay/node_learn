@@ -1,4 +1,4 @@
-.sign-up-form, .sign-in-form, .posts-article-list {
+.sign-up-form, .sign-in-form, .posts-article-list, .posts-article-edit-form, .posts-article-detail_wrap {
     width: 500px;
     margin: auto;
 }
@@ -51,4 +51,11 @@ ul {
 
 .posts-nav .dropdown-menu .divider {
     margin: 6px 0
+}
+
+.posts-article-detail-content{
+    border-radius: 10px;
+    padding: 20px 20px 30px;
+    box-shadow: 0 0 35px #ccc;
+    margin-bottom: 30px;
 }
