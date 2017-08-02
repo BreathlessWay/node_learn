@@ -1,0 +1,54 @@
+.sign-up-form, .sign-in-form, .posts-article-list {
+    width: 500px;
+    margin: auto;
+}
+
+ul {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+.posts-article-list-item {
+    border-radius: 10px;
+    padding: 20px 20px 30px;
+    box-shadow: 0 0 35px #ccc;
+    margin-bottom: 30px;
+}
+
+.posts-article-list_title {
+    color: #2a65ff;
+    font-size: 22px;
+}
+
+.posts-article-list_content {
+    margin-bottom: 20px;
+}
+
+.posts-article-list_aside {
+    display: flex;
+    justify-content: space-between;
+    font-size: 12px;
+}
+
+.posts-article-list-link {
+    color: #000;
+}
+
+.posts-article-list-link:hover {
+    text-decoration: none;
+}
+
+.posts-nav {
+    position: absolute;
+    right: 440px;
+    top: 28px;
+}
+
+.posts-nav .dropdown-menu {
+    min-width: 70px;
+}
+
+.posts-nav .dropdown-menu .divider {
+    margin: 6px 0
+}

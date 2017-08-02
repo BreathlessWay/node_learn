@@ -2,6 +2,7 @@ const path = require('path');
 const express = require('express');
 const app = express();
 const expressSession = require('express-session');
+const bodyParser = require('body-parser');
 const favicon = require('serve-favicon');
 const flash = require('connect-flash');
 const MongoStore = require('connect-mongo')(expressSession);
@@ -14,6 +15,9 @@ app.set('view engine', 'ejs');
 
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
+
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({extended: false}));
 
 app.use(expressSession({
   name: config.session.key,// 设置 cookie 中保存 session id 的字段名称
@@ -32,6 +36,8 @@ app.use(flash());
 // 路由
 routes(app);
 
+console.log(process.env.NODE_ENV);
+
 //统一收集错误信息
 app.use(function (req, res, next) {
   res.locals.errors = req.flash('error');
@@ -49,10 +55,10 @@ app.use(function (req, res, next) {
 // error handler
 app.use(function (err, req, res, next) {
   res.status(err.status || 500);
+  req.flash('error', err.message);
   res.render('error', {
     title: 'error',
-    message: '404 not found',
-    error: err
+    message: '404 not found'
   });
 });
 

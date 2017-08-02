@@ -4,8 +4,36 @@ const checkLogin = require('../middlewares/check').checkLogin;
 
 //获取文章列表
 router.get('/', (req, res, next) => {
-  req.flash('error', '用户不存在');
-  res.send(req.flash());
+  res.locals.user = req.session.user;
+  res.render('posts', {
+    title: '博客',
+    list: [
+      {
+        _id: 'fa125gv364hndgh57azsf',
+        title: 'fafa',
+        desc: 'gaf',
+        date: '2015-05-20',
+        read: 5,
+        apply: 4
+      },
+      {
+        _id: 'fa125gv364hndgh57azsf',
+        title: 'fafa',
+        desc: 'gaf',
+        date: '2015-05-20',
+        read: 5,
+        apply: 4
+      },
+      {
+        _id: 'fa125gv364hndgh57azsf',
+        title: 'fafa',
+        desc: 'gaf',
+        date: '2015-05-20',
+        read: 5,
+        apply: 4
+      }
+    ]
+  });
 });
 
 //发表文章

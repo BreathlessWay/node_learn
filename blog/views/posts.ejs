@@ -1,0 +1,52 @@
+<%- include('header') %>
+
+<article class="posts">
+    <header>
+        <h3 class="text-center">Blog Article</h3>
+        <aside class="posts-nav">
+            <span class="glyphicon glyphicon-align-justify" data-toggle="dropdown" style="cursor: pointer"></span>
+            <% if(!user) { %>
+            <ul class="dropdown-menu">
+                <li><a href="/signin">登录</a></li>
+                <li><a href="/signup">注册</a></li>
+            </ul>
+            <% } else { %>
+            <ul class="dropdown-menu">
+                <li><a href="/signin">个人中心</a></li>
+                <li role="separator" class="divider"></li>
+                <li style="margin-bottom: 3px"><a href="/signup">发表文章</a></li>
+                <li><a href="/signout">退出</a></li>
+            </ul>
+            <% } %>
+        </aside>
+    </header>
+    <br>
+    <section class="posts-article-list">
+        <ul>
+            <% for(var i = 0,len=list.length;i < len;i++) { %>
+            <li class="posts-article-list-item">
+                <a href="/posts/<%= list[i]._id %>" class="posts-article-list-link">
+                    <h4 class="posts-article-list_title"><%= list[i].title %></h4>
+                    <section class="posts-article-list_content">
+                        <%= list[i].desc %>
+                    </section>
+                    <aside class="posts-article-list_aside">
+                        <span><%= list[i].date %></span>
+                        <span>
+                        浏览(<%= list[i].read %>) 回复(<%= list[i].apply %>)
+                    </span>
+                    </aside>
+                </a>
+            </li>
+            <% } %>
+        </ul>
+        <nav>
+            <ul class="pager">
+                <li class="previous"><a href="#"><span aria-hidden="true">&larr;</span> 上一页</a></li>
+                <li class="next"><a href="#">下一页 <span aria-hidden="true">&rarr;</span></a></li>
+            </ul>
+        </nav>
+    </section>
+</article>
+
+<%- include('footer') %>

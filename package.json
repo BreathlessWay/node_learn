@@ -4,8 +4,8 @@
   "description": "",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "supervisor --harmony ./blog/index.js",
-    "prod": "set NODE_ENV=prod node ./blog/index.js"
+    "start": "set NODE_ENV=dev && supervisor --harmony ./blog/index.js",
+    "prod": "set NODE_ENV=prod && node ./blog/index.js"
   },
   "author": "",
   "license": "ISC",
