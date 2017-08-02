@@ -78,7 +78,16 @@ router.get('/:postId', (req, res, next) => {
       author: 'faft3',
       read: 5,
       apply: 4
-    }
+    },
+    comment: [
+      {
+        _id: 'fa125gv364hndgh57azsf',
+        name: 'fafa',
+        avater: '',
+        date: '2015-05-20',
+        detail: 'faft3'
+      }
+    ]
   });
 });
 

@@ -9,6 +9,10 @@ ul {
     list-style: none;
 }
 
+.dropdown-menu {
+    min-width: 70px;
+}
+
 .posts-article-list-item {
     border-radius: 10px;
     padding: 20px 20px 30px;
@@ -45,17 +49,47 @@ ul {
     top: 28px;
 }
 
-.posts-nav .dropdown-menu {
-    min-width: 70px;
-}
-
 .posts-nav .dropdown-menu .divider {
     margin: 6px 0
 }
 
-.posts-article-detail-content{
+.posts-article-detail-content {
     border-radius: 10px;
     padding: 20px 20px 30px;
     box-shadow: 0 0 35px #ccc;
     margin-bottom: 30px;
+}
+
+.posts-article-detail-comment {
+    border-radius: 10px;
+    padding: 10px 20px 30px;
+    box-shadow: 0 0 35px #ccc;
+    margin-bottom: 30px;
+}
+
+.posts-article-detail_aside_right .dropdown {
+    display: inline-block;
+}
+
+.posts-article-detail-comment hr {
+    margin-bottom: 12px;
+    margin-top: 8px;
+}
+
+.posts-article-detail-comment_item .media-body {
+    position: relative;
+}
+
+.posts-article-detail-comment_item .glyphicon-remove {
+    position: absolute;
+    top: 0;
+    right: 0;
+    cursor: pointer;
+    color: #ce4844;
+}
+
+.posts-article-detail-comment_item_date{
+    font-size: 12px;
+    font-style: normal;
+    margin-left: 10px;
 }
