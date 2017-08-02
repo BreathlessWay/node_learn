@@ -33,10 +33,10 @@ app.use(expressSession({
 }));
 app.use(flash());
 
-console.log(process.env.NODE_ENV);
+console.log(app.get('env'));
 
 //统一收集错误信息
-app.use(function (req, res, next) {
+app.use(function(req, res, next) {
   res.locals.user = req.session.user;
   res.locals.success = req.flash('success').toString();
   res.locals.error = req.flash('error').toString();
@@ -47,14 +47,14 @@ app.use(function (req, res, next) {
 routes(app);
 
 // catch 404 and forward to error handler
-app.use(function (req, res, next) {
+app.use(function(req, res, next) {
   const err = new Error('Not Found');
   err.status = 404;
   next(err);
 });
 
 // error handler
-app.use(function (err, req, res, next) {
+app.use(function(err, req, res, next) {
   res.status(err.status || 500);
   req.flash('error', err.message);
   res.render('error', {
@@ -64,6 +64,6 @@ app.use(function (err, req, res, next) {
 });
 
 // 监听端口，启动程序
-app.listen(config.port, function () {
+app.listen(config.port, function() {
   console.log(`${pkg.name} listening on port ${config.port}`);
 });
