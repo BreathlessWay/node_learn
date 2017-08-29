@@ -6,6 +6,7 @@
  */
 const EventEmitter = require('events').EventEmitter;
 const event = new EventEmitter();
+const fs = require('fs');
 const crypto = require('crypto');
 const schedule = require('node-schedule');
 
@@ -26,3 +27,7 @@ console.log(event.listeners('nopa').toString())
 schedule.scheduleJob('30 * * * * *', function() {
     console.log('schedule' + new Date())
 })
+
+fs.readFile('./mongodb.js', 'utf8', (err, res) => {
+    console.log(res)
+});
