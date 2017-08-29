@@ -8,7 +8,7 @@ const EventEmitter = require('events').EventEmitter;
 const event = new EventEmitter();
 
 event.on('nopa', (...arg) => {
-    console.log(...arg)
+	console.log(...arg)
 })
 
 event.emit('nopa')
