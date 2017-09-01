@@ -28,17 +28,17 @@ schedule.scheduleJob('30 * * * * *', function() {
     console.log('schedule' + new Date())
 })
 
-// fs.readFile('./mongodb.js', 'utf8', (err, res) => {
-// console.log(res)
-// })
+fs.readFile('./mongodb.js', 'utf8', (err, res) => {
+console.log(res)
+})
 
-// const fsStream = fs.createWriteStream('./steam.js', 'utf8');
+const fsStream = fs.createWriteStream('./steam.doc', 'utf8');
 
-// fsStream.write('呵呵哒！！！')
+fsStream.write('呵呵哒！！！')
 
-// fsStream.end()
+fsStream.end()
 
-const readSteam = fs.createReadStream('./mongodb.js');
-const writeSteam = fs.createWriteStream('./writeSteam.js');
+// const readSteam = fs.createReadStream('./mongodb.js');
+// const writeSteam = fs.createWriteStream('./writeSteam.js');
 
-readSteam.pipe(writeSteam)
+// readSteam.pipe(writeSteam)
