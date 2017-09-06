@@ -1,0 +1,11 @@
+<%- include('header') %>
+
+<% if(user) {%>
+<div class="container-fluid">
+  欢迎回来<%= user%>
+</div>
+<%} else {%>
+<a href="/sign">注册</a>
+<a href="/login">登陆</a>
+<%}%>
+<%- include('footer') %>
