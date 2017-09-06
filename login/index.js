@@ -18,7 +18,7 @@ app.set('view engine', 'ejs');
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
-app.use(cookieParser());
+app.use(cookieParser('user'));
 app.use(session({
     name: 'user', // 设置 cookie 中保存 session id 的字段名称
     secret: 'user', // 通过设置 secret 来计算 hash 值并放在 cookie 中，使产生的 signedCookie 防篡改
@@ -33,6 +33,6 @@ app.use(session({
 }));
 app.use(require('./router/index.js'))
 
-app.listen(8000,()=>{
-	console.log('server is running on 8000')
+app.listen(8000, () => {
+    console.log('server is running on 8000')
 })
