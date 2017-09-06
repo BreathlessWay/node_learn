@@ -9,11 +9,11 @@ const { Router } = require('express');
 const router = new Router();
 const checkLogin = require('../middleware/checkLogin.js')
 
-router.get('/login', checkLogin, (req, res) => {
-    res.render('login')
+router.get('/sign', (req, res) => {
+    res.render('sign')
 })
 
-router.post('/login', (req, res) => {
+router.post('/sign', (req, res) => {
     req.session.user = req.body.user;
     res.redirect('/')
 })
