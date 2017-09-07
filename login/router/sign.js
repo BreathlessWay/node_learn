@@ -5,17 +5,19 @@
  * @version $Id$
  */
 
-const { Router } = require('express');
+const {
+	Router
+} = require('express');
 const router = new Router();
 const checkLogin = require('../middleware/checkLogin.js')
 
 router.get('/sign', (req, res) => {
-    res.render('sign')
+	res.render('sign')
 })
 
 router.post('/sign', (req, res) => {
-    req.session.user = req.body.user;
-    res.redirect('/')
+	req.session.user = req.body.user;
+	res.redirect('/')
 })
 
 module.exports = router
