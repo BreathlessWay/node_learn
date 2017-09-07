@@ -48,6 +48,10 @@ schema.pre('save', function(next) {
 	next();
 })
 
+schema.post('save', function() {
+	console.log('保存好了')
+})
+
 schema.methods.intro = function() {
 	console.log(`My name is ${this.name} I am ${this.age}`)
 };
@@ -67,7 +71,7 @@ const Model = mongoose.model('HUIZHI', schema)
 
 const data = new Model({
 	name: 'hehe',
-	age: '50'
+	age: '16'
 })
 
 data.save((err, doc) => {
