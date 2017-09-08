@@ -51,7 +51,7 @@ app.use((req, res, next) => {
 	next()
 });
 
-app.use(router);
+router(app);
 
 app.use((req, res, next) => {
 	const error = new Error('404 NOT FOUND');

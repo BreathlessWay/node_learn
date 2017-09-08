@@ -8,9 +8,9 @@
 const {
 	Router
 } = require('express');
-const router = new Router();
+const router = Router();
 
-router('/login', (req, res) => {
+router.get('/', (req, res) => {
 	res.render('login', {
 		title: '登录'
 	})

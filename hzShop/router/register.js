@@ -8,10 +8,9 @@
 const {
 	Router
 } = require('express');
-const router = new Router();
+const router = Router();
 
-router.get('/register', (req, res) => {
-	req.flash('success','快来注册')
+router.get('/', (req, res) => {
 	res.render('register', {
 			title: '注册'
 		})

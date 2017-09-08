@@ -5,12 +5,9 @@
  * @version $Id$
  */
 
-const {
-	Router
-} = require('express');
-const router = new Router();
+module.exports = (app)=>{
+	app.use('/',require('./main.js'));
+	app.use('/register',require('./register.js'));
+	app.use('/login',require('./login.js'))
+}
 
-module.exports = [
-	require('./main.js'),
-	require('./register.js')
-]

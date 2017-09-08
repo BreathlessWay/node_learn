@@ -8,7 +8,7 @@
 const {
 	Router
 } = require('express');
-const router = new Router();
+const router = Router();
 
 router.get('/', (req, res) => {
 	req.flash('success', '欢迎光临');
