@@ -5,3 +5,15 @@
  * @version $Id$
  */
 
+const {
+	Router
+} = require('express');
+const router = new Router();
+
+router('/login', (req, res) => {
+	res.render('login', {
+		title: '登录'
+	})
+});
+
+module.exports = router;

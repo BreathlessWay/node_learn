@@ -1,5 +1,5 @@
 <%- include('header') %>
-<article class="container">
+<article class="container MT50">
 	<h5 class="text-info text-center"><%= success%></h5>
 	<form style="width: 300px;margin: auto">
 	  <div class="form-group">
@@ -15,8 +15,11 @@
 	    <label for="password_repeat">重复密码：</label>
 	    <input type="password" class="form-control" id="password_repeat" placeholder="重复密码" name="password_repeat">
 	  </div>
-	  <button type="submit" class="btn btn-primary">注册</button>
-	  <a href="/" class="btn  btn-outline-primary">返回</a>
+	  <div class="text-right">
+		<button type="submit" class="btn btn-primary">注册</button>
+		&nbsp;
+		<a href="/" class="btn  btn-outline-primary">返回</a>
+	  </div>
 	</form>
 </article>
 <%- include('footer') %>

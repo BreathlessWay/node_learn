@@ -5,6 +5,11 @@
  * @version $Id$
  */
 
+const {
+	Router
+} = require('express');
+const router = new Router();
+
 module.exports = [
 	require('./main.js'),
 	require('./register.js')

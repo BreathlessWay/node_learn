@@ -1,6 +1,15 @@
 <%- include('header') %>
 <article class="container">
-	主页
-		<%= success %>
+	<% if (user) {%>
+	<aside>
+		欢迎光临，亲爱的 <%= user %>
+		<a href="/logout">退出</a>	
+		</aside>	
+	<%} else {%>
+	<aside class="float-right">
+		<a href="/login">登陆</a>
+		<a href="/register">注册</a>	
+		</aside>	
+	<% } %>
 </article>
 <%- include('footer') %>
