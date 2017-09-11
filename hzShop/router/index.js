@@ -5,9 +5,9 @@
  * @version $Id$
  */
 
-module.exports = (app)=>{
-	app.use('/',require('./main.js'));
-	app.use('/register',require('./register.js'));
-	app.use('/login',require('./login.js'))
+module.exports = (app) => {
+	app.use('/', require('./main.js'));
+	app.use('/register', require('./register.js'));
+	app.use('/login', require('./login.js'));
+	app.use('/logout', require('./logout.js'))
 }
-

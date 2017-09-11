@@ -1,19 +1,26 @@
 <%- include('header') %>
 <article class="container MT50">
 	<h5 class="text-info text-center">快来注册吧</h5>
-	<form style="width: 300px;margin: auto">
+	<% if (error) {%>
+		<div class="alert alert-danger" role="alert">
+			<%= error %>
+		</div>
+	<%}%>
+	<form style="width: 300px;margin: auto" method="post" action="/register">
 	  <div class="form-group">
 	    <label for="user">用户名：</label>
 	    <input type="text" class="form-control" id="user" placeholder="用户名" name="user" aria-describedby="user-info">
-	    <small id="user-info" class="form-text text-muted">用户名不能为除英文汉字数字以外的字符</small>
+	    <small id="user-info" class="form-text text-muted">用户名只能为为6-12位的英文汉字数字</small>
 	  </div>
 	 <div class="form-group">
 	    <label for="password">密码：</label>
-	    <input type="password" class="form-control" id="password" placeholder="密码" name="password">
+	    <input type="password" class="form-control" id="password" placeholder="密码" name="password" aria-describedby="password-info">
+	    <small id="password-info" class="form-text text-muted">密码只能为6-12位的数字字母下划线</small>
 	  </div>
 	  <div class="form-group">
 	    <label for="password_repeat">重复密码：</label>
-	    <input type="password" class="form-control" id="password_repeat" placeholder="重复密码" name="password_repeat">
+	    <input type="password" class="form-control" id="password_repeat" placeholder="重复密码" name="password_repeat" aria-describedby="password-repeat-info">
+	    <small id="password-repeat-info" class="form-text text-muted">两次密码输入需保持一致</small>
 	  </div>
 	  <div class="text-right">
 		<button type="submit" class="btn btn-primary">注册</button>

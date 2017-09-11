@@ -11,7 +11,6 @@ const {
 const router = Router();
 
 router.get('/', (req, res) => {
-	req.flash('success', '欢迎光临');
 	res.render('main', {
 		title: '主页'
 	})

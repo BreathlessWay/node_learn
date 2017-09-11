@@ -1,6 +1,15 @@
 <%- include('header') %>
 <article class="container">
-<%= success%>
+	<% if (success) {%>
+		<div class="alert alert-success" role="alert">		  
+			<%= success %>
+		</div>
+	<%}%>
+	<% if (error) {%>
+		<div class="alert alert-danger" role="alert">	  
+			<%= error %>
+		</div>
+	<%}%>
 	<% if (user) {%>
 	<aside>
 		欢迎光临，亲爱的 <%= user %>
