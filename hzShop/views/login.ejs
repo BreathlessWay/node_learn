@@ -1,7 +1,12 @@
 <%- include('header') %>
 <article class="container MT50">
 	<h5 class="text-info text-center">快登陆看看</h5>
-	<form style="width: 300px;margin: auto" method="post" action="/register">
+	<% if (error) {%>
+		<div class="alert alert-danger" role="alert">
+			<%= error %>
+		</div>
+	<%}%>
+	<form style="width: 300px;margin: auto" method="post" action="/login">
 	  <div class="form-group">
 	    <label for="user">用户名：</label>
 	    <input type="text" class="form-control" id="user" placeholder="用户名" name="user" aria-describedby="user-info">
