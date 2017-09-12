@@ -40,7 +40,7 @@
 
 	<section class="row">
 		<% commodityList.forEach(function(list,index){ %>
-		<div class="col-md-3" data-key="<%= index %>">
+		<div class="col-md-3 shop-index-list" data-key="<%= index %>">
 			<div class="card">
 				<% if( list.imgSrc ) {%>
 				<img class="card-img-top" src=<%= list.imgSrc %> alt=<%= list.name %>  >

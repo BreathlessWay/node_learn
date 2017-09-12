@@ -30,11 +30,13 @@ router.get('/:id?', (req, res) => {
 		price: '',
 		imgSrc: ''
 	}
+	let title = '添加商品'
 	CommodityModel.findById(req.params.id, (err, data) => {
 		if (err) {
 			req.flash('error', err.toString() || '商品信息查询失败')
 		}
 		if (data) {
+			title = '编辑商品'
 			initialData.name = data.name;
 			initialData.desc = data.desc;
 			initialData.price = data.price;
@@ -42,7 +44,7 @@ router.get('/:id?', (req, res) => {
 		}
 
 		res.render('addCommodity', {
-			title: '添加商品',
+			title,
 			initialData
 		});
 	})
@@ -76,12 +78,6 @@ router.post('/:id?', upload.single('imgSrc'), (req, res) => {
 		return req.params.id ? res.redirect(`/addCommodity/${req.params.id}`) : res.redirect(`/addCommodity`);
 	};
 
-	const commodity = new CommodityModel({
-		name: req.body.name,
-		price: req.body.price,
-		desc: req.body.desc,
-	})
-
 	if (req.file) {
 		// const readSteam = fs.createReadStream(req.file.path);
 		// const writeSteam = fs.createWriteStream(path.resolve(__dirname, `../public/img/${req.file.originalname}`));
@@ -92,27 +88,72 @@ router.post('/:id?', upload.single('imgSrc'), (req, res) => {
 				req.flash('error', '上传文件失败！');
 			}
 			const imgSrc = `/img/${req.file.originalname}`;
-			commodity.imgSrc = imgSrc;
+			if (req.params.id) {
+				CommodityModel.update({
+					_id: req.params.id
+				}, {
+					name: req.body.name,
+					price: req.body.price,
+					desc: req.body.desc,
+					imgSrc: imgSrc
+				}, error => {
+					if (error) {
+						req.flash('error', '商品更新失败！');
+						return res.redirect(`/addCommodity/${req.params.id}`)
+					}
+					req.flash('success', '商品更新成功！');
+					res.redirect(`/addCommodity/${req.params.id}`)
+				});
+			} else {
+				const commodity = new CommodityModel({
+					name: req.body.name,
+					price: req.body.price,
+					desc: req.body.desc,
+					imgSrc: imgSrc
+				})
+				commodity.save()
+					.then(() => {
+						req.flash('success', '商品发布成功！');
+						return res.redirect(`/addCommodity`);
+					})
+					.catch(err => {
+						req.flash('error', err || '商品发布失败');
+						return res.redirect(`/addCommodity`);
+					});
+			}
+		});
+	} else {
+		if (req.params.id) {
+			CommodityModel.update({
+				_id: req.params.id
+			}, {
+				name: req.body.name,
+				price: req.body.price,
+				desc: req.body.desc
+			}, error => {
+				if (error) {
+					req.flash('error', '商品更新失败！');
+					return res.redirect(`/addCommodity/${req.params.id}`)
+				}
+				req.flash('success', '商品更新成功！');
+				res.redirect(`/addCommodity/${req.params.id}`)
+			});
+		} else {
+			const commodity = new CommodityModel({
+				name: req.body.name,
+				price: req.body.price,
+				desc: req.body.desc
+			})
 			commodity.save()
 				.then(() => {
 					req.flash('success', '商品发布成功！');
-					return req.params.id ? res.redirect(`/addCommodity/${req.params.id}`) : res.redirect(`/addCommodity`);
+					return res.redirect(`/addCommodity`);
 				})
 				.catch(err => {
 					req.flash('error', err || '商品发布失败');
-					return req.params.id ? res.redirect(`/addCommodity/${req.params.id}`) : res.redirect(`/addCommodity`);
+					return res.redirect(`/addCommodity`);
 				});
-		});
-	} else {
-		commodity.save()
-			.then(() => {
-				req.flash('success', '商品发布成功！');
-				return req.params.id ? res.redirect(`/addCommodity/${req.params.id}`) : res.redirect(`/addCommodity`);
-			})
-			.catch(err => {
-				req.flash('error', err || '商品发布失败');
-				return req.params.id ? res.redirect(`/addCommodity/${req.params.id}`) : res.redirect(`/addCommodity`);
-			});
+		}
 	}
 })
 
