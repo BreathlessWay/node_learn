@@ -9,11 +9,23 @@ const {
 	Router
 } = require('express');
 const router = Router();
+const CommodityModel = require('../lib/commodity.js');
 
 router.get('/', (req, res) => {
-	res.render('main', {
-		title: '主页'
-	})
+	CommodityModel.find({}, (err, data) => {
+			if (err) {
+				req.flash('error', err || '数据库查询失败')
+				return res.render('main', {
+					title: '主页',
+					commodityList: []
+				})
+			}
+			res.render('main', {
+				title: '主页',
+				commodityList: data
+			})
+		})
 });
+
 
 module.exports = router;

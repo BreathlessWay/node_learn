@@ -1,5 +1,11 @@
 <%- include('header') %>
 <article class="container MT50">
+	<nav aria-label="breadcrumb" role="navigation">
+		  <ol class="breadcrumb">
+		    <li class="breadcrumb-item"><a href="/">主页</a></li>
+		    <li class="breadcrumb-item active" aria-current="page">注册</li>
+		  </ol>
+	</nav>
 	<h5 class="text-info text-center">快来注册吧</h5>
 	<% if (error) {%>
 		<div class="alert alert-danger" role="alert">
