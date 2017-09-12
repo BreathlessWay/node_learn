@@ -54,7 +54,11 @@
 						</a>
 					</h4>
 					<p class="card-text"><%= list.desc || list.name %></p>
+					<% if (user) { %>
 					<a href="#" class="btn btn-primary">
+					<% } else { %>
+					<a href="/login" class="btn btn-primary">
+					<% } %>
 						<span class="badge badge-danger">￥<%= list.price %></span>
 						加入购物车
 					</a>

@@ -21,3 +21,11 @@
 .shop-index-list {
     margin-bottom : 22px;
 }
+
+.card-title, .card-text {
+    display : block;
+    overflow : hidden;
+
+    white-space : nowrap;
+    text-overflow : ellipsis;
+}
