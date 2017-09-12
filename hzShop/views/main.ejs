@@ -42,10 +42,18 @@
 		<% commodityList.forEach(function(list,index){ %>
 		<div class="col-md-3" data-key="<%= index %>">
 			<div class="card">
-				<img class="card-img-top" src="<%= list.imgSrc%>" alt="<%= list.name %>"  />
+				<% if( list.imgSrc ) {%>
+				<img class="card-img-top" src=<%= list.imgSrc %> alt=<%= list.name %>  >
+				<% } else {%>
+				<img class="card-img-top" src="/img/default.png" alt=<%= list.name %>  >
+				<% } %>
 				<div class="card-body">
-					<h4 class="card-title"><%= list.name %></h4>
-					<p class="card-text"><%= list.desc %></p>
+					<h4 class="card-title">
+						<a href="/addCommodity/<%= list._id %>" class='shop-index-list_title'>
+						<%= list.name %>
+						</a>
+					</h4>
+					<p class="card-text"><%= list.desc || list.name %></p>
 					<a href="#" class="btn btn-primary">
 						<span class="badge badge-danger">￥<%= list.price %></span>
 						加入购物车

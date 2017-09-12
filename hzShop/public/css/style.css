@@ -8,3 +8,12 @@
 .MT50 {
     margin-top : 50px;
 }
+.shop-index-list_title {
+    color : #222222;
+}
+
+.shop-index-list_title:hover {
+    text-decoration : none;
+
+    color : #28a745;
+}

@@ -31,15 +31,19 @@
 	  </ol>
 	</nav>
 
-	<form style="width: 600px;margin: auto" method="post" action="/register">
+	<form style="width: 600px;margin: auto" method="post"  enctype="multipart/form-data">
 	  <div class="form-group">
 	    <label for="name">商品名称：</label>
-	    <input type="text" class="form-control" id="name" placeholder="商品名称" name="name" aria-describedby="name-info">
+	    <input type="text" class="form-control" id="name" placeholder="商品名称" name="name" aria-describedby="name-info" value="<%= initialData.name %>">
 	    <small id="name-info" class="form-text text-muted">商品名称只能为为6-12位的英文汉字数字</small>
 	  </div>
 	 <div class="form-group">
 	    <label for="price">商品价格：</label>
-	    <input type="price" class="form-control" id="price" placeholder="0.00" name="price" aria-describedby="price-info">
+	    <div class="input-group mb-2 mb-sm-0">
+		<div class="input-group-addon">￥</div>
+		<input type="price" class="form-control" id="price" placeholder="0.00" name="price" aria-describedby="price-info" value="<%= initialData.price %>">
+		<span class="input-group-addon">元</span>
+	    </div>
 	    <small id="price-info" class="form-text text-muted">商品价格只能为数字0.00</small>
 	  </div>
 	  <div class="form-group">
@@ -48,8 +52,18 @@
 	    <input type="file" class="form-control-file" id="imgSrc" name="imgSrc" aria-describedby="imgSrc-info">
 	    <small id="imgSrc-info" class="form-text text-muted">商品图片只能为小于1M得jpg，png，jpeg图片</small>
 	  </div>
-	  <div class="text-right">
-		<button type="submit" class="btn btn-primary">注册</button>
+	  <% if( initialData.imgSrc ) {%>
+	  <div>
+	  	<img src="<%= initialData.imgSrc %>" alt="" style="max-width: 100%"/>
+	  </div>
+	  <% } %>
+	  <div class="form-group">
+	    <label for="desc">商品描述：</label>
+	    <textarea class="form-control" id="desc" rows="3" name="desc" aria-describedby="desc-info"><%= initialData.desc %></textarea>
+	    <small id="desc-info" class="form-text text-muted">商品描述字数不能大于200字</small>
+	  </div>
+	  <div class="text-center">
+		<button type="submit" class="btn btn-primary">发布</button>
 		&nbsp;
 		<a href="/" class="btn  btn-outline-primary">返回</a>
 	  </div>
