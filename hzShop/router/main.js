@@ -10,6 +10,8 @@ const {
 } = require('express');
 const router = Router();
 const CommodityModel = require('../lib/commodity.js');
+const CartsModel = require('../lib/carts.js');
+const UserModel = require('../lib/user.js');
 
 router.get('/', (req, res) => {
 	CommodityModel.find({}, (err, data) => {
@@ -28,8 +30,23 @@ router.get('/', (req, res) => {
 });
 
 router.post('/', (req, res) => {
-	console.log(req.body.id);
-	res.send('添加成功！')
+	UserModel.find({
+		name: req.session.user
+	}, (err, data) => {
+		if (err) {
+			res.status(400).send('数据库查询失败！')
+		}
+		CartsModel.findById(req.body.id, (err, data) => {
+			if (err) {
+				res.status(400).send('数据库查询失败！')
+			}
+			if (data) {
+
+			}
+			res.send('添加成功！')
+		})
+	})
+
 })
 
 module.exports = router;
