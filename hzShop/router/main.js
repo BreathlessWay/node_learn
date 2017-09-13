@@ -30,20 +30,57 @@ router.get('/', (req, res) => {
 });
 
 router.post('/', (req, res) => {
-	UserModel.find({
+	UserModel.findOne({
 		name: req.session.user
-	}, (err, data) => {
+	}, (err, userData) => {
 		if (err) {
 			res.status(400).send('数据库查询失败！')
 		}
-		CartsModel.findById(req.body.id, (err, data) => {
+		CartsModel.findOne({
+			uId: userData._id,
+			cId: req.body.id
+		}, (err, cartData) => {
 			if (err) {
-				res.status(400).send('数据库查询失败！')
+				return res.status(400).send('数据库查询失败！')
 			}
-			if (data) {
-
+			if (cartData) {
+				const num = +cartData.cQuantity + 1;
+				CartsModel.updateOne({
+					uId: userData._id,
+					cId: req.body.id
+				}, {
+					$set: {
+						cQuantity: num
+					}
+				}, err => {
+					if (err) {
+						return res.status(400).send(err || '添加失败！')
+					}
+					return res.status(200).send('添加成功！')
+				})
+			} else {
+				CommodityModel.findById(req.body.id, (err, commodityData) => {
+					if (err) {
+						return res.status(400).send('数据库查询失败！')
+					}
+					const carts = new CartsModel({
+						uId: userData._id,
+						cId: req.body.id,
+						cName: commodityData.name,
+						cPrice: commodityData.price,
+						cImgSrc: commodityData.imgSrc,
+						cQuantity: 1,
+						cStatus: false
+					});
+					carts.save()
+						.then(() => {
+							res.status(200).send('添加成功！')
+						})
+						.catch(err => {
+							return res.status(400).send(err || '添加失败！')
+						})
+				})
 			}
-			res.send('添加成功！')
 		})
 	})
 
