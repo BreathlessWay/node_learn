@@ -69,8 +69,8 @@ router.post('/:id?', upload.single('imgSrc'), (req, res) => {
 		};
 		if (req.file) {
 			const extName = path.extname(req.file.originalname)
-			if (req.file.size > 1 * 1024 * 1024 || !config.reg.imgExt.includes(extName.toLowerCase())) {
-				throw new Error('商品图片只能为小于1M得jpg，png，jpeg图片');
+			if (req.file.size > 2 * 1024 * 1024 || !config.reg.imgExt.includes(extName.toLowerCase())) {
+				throw new Error('商品图片只能为小于2M得jpg，png，jpeg图片');
 			};
 		};
 	} catch (e) {
