@@ -5,27 +5,11 @@
  * @date    2017-09-08 13:56:04
  * @version $Id$
  */
-.MT50 {
-    margin-top : 50px;
-}
-.shop-index-list_title {
-    color : #222222;
+
+body, html {
+    font-size : 14px;
 }
 
-.shop-index-list_title:hover {
+a:hover {
     text-decoration : none;
-
-    color : #28a745;
-}
-
-.shop-index-list {
-    margin-bottom : 22px;
-}
-
-.card-title, .card-text {
-    display : block;
-    overflow : hidden;
-
-    white-space : nowrap;
-    text-overflow : ellipsis;
 }

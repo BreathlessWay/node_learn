@@ -10,5 +10,6 @@ module.exports = (app) => {
 	app.use('/register', require('./register.js'));
 	app.use('/login', require('./login.js'));
 	app.use('/logout', require('./logout.js'));
-	app.use('/addCommodity', require('./addCommodity.js'))
+	app.use('/addCommodity', require('./addCommodity.js'));
+	app.use('/carts', require('./cartsEdit.js'))
 }

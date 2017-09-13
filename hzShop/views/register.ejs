@@ -1,5 +1,5 @@
 <%- include('header') %>
-<article class="container MT50">
+<article class="container mt-5">
 	<nav aria-label="breadcrumb" role="navigation">
 		  <ol class="breadcrumb">
 		    <li class="breadcrumb-item"><a href="/">主页</a></li>
@@ -12,7 +12,7 @@
 			<%= error %>
 		</div>
 	<%}%>
-	<form style="width: 300px;margin: auto" method="post" action="/register">
+	<form class="mx-auto col-sm-4" method="post" action="/register">
 	  <div class="form-group">
 	    <label for="user">用户名：</label>
 	    <input type="text" class="form-control" id="user" placeholder="用户名" name="user" aria-describedby="user-info">

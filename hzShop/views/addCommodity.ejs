@@ -31,7 +31,7 @@
 	  </ol>
 	</nav>
 
-	<form style="width: 600px;margin: auto" method="post"  enctype="multipart/form-data">
+	<form class="mx-auto col-sm-6" method="post"  enctype="multipart/form-data">
 	  <div class="form-group">
 	    <label for="name">商品名称：</label>
 	    <input type="text" class="form-control" id="name" placeholder="商品名称" name="name" aria-describedby="name-info" value="<%= initialData.name %>">
@@ -54,9 +54,10 @@
 	  </div>
 	  <% if( initialData.imgSrc ) {%>
 	  <div>
-	  	<img src="<%= initialData.imgSrc %>" alt="" style="max-width: 100%"/>
+	  	<img src="<%= initialData.imgSrc %>" class="img-fluid img-thumbnail" id="oldImgSrc"/>
 	  </div>
 	  <% } %>
+	  <img src="" alt="" id="uploadPreview" class="img-fluid img-thumbnail" style="display: none" />
 	  <div class="form-group">
 	    <label for="desc">商品描述：</label>
 	    <textarea class="form-control" id="desc" rows="3" name="desc" aria-describedby="desc-info"><%= initialData.desc %></textarea>
@@ -69,5 +70,26 @@
 	  </div>
 	</form>
 </article>
+<script type="text/javascript" charset="utf-8">
+	window.onload = function () {
+		var fileReader = new FileReader();
+		var rFilter = /^(?:image\/bmp|image\/jpeg|image\/png)$/i;
+		var oUploadPreview = document.getElementById("uploadPreview");
+		var oImgSrc = document.getElementById("imgSrc");
+		var oOldImgSrc = document.getElementById("oldImgSrc");
 
+		fileReader.onload = function (event) {
+		  oUploadPreview.src = event.target.result;
+		};
+		oImgSrc.onchange = function () {
+			if (oImgSrc.files.length === 0) return;
+			if (!rFilter.test(oImgSrc.files[0].type)) return;
+			if(oOldImgSrc){
+				oOldImgSrc.style.display = 'none';
+			};
+			oUploadPreview.style.display = 'block';
+			fileReader.readAsDataURL(oImgSrc.files[0]);
+		}
+	}
+</script>
 <%- include('footer') %>

@@ -1,0 +1,66 @@
+<%- include('header') %>
+
+<article class="container">
+	<% if (success) {%>
+		<div class="alert alert-success" role="alert">		  
+			<%= success %>
+		</div>
+	<%}%>
+	<% if (error) {%>
+		<div class="alert alert-danger" role="alert">	  
+			<%= error %>
+		</div>
+	<%}%>
+	<header class="row">
+		<aside class="col nav-link">
+		  欢迎光临，亲爱的 
+		  <a href="">
+		  	<%= user %>
+		  </a>
+		</aside>	
+		<nav class="nav  float-right">
+		  <a class="nav-link active" href="/addCommodity">添加商品</a>
+		  <a class="nav-link" href="/logout">退出</a>	
+		</nav>
+	</header>
+	<div class="clearfix"></div>
+
+	<nav aria-label="breadcrumb" role="navigation">
+	  <ol class="breadcrumb">
+	    <li class="breadcrumb-item active" aria-current="page"><a href="/">主页</a></li>
+	    <li class="breadcrumb-item">购物车</li>
+	  </ol>
+	</nav>
+	<table class="table">
+	  <thead>
+	    <tr>
+	      <th scope="col">#</th>
+	      <th scope="col">First Name</th>
+	      <th scope="col">Last Name</th>
+	      <th scope="col">Username</th>
+	    </tr>
+	  </thead>
+	  <tbody>
+	    <tr>
+	      <th scope="row">1</th>
+	      <td>Mark</td>
+	      <td>Otto</td>
+	      <td>@mdo</td>
+	    </tr>
+	    <tr>
+	      <th scope="row">2</th>
+	      <td>Jacob</td>
+	      <td>Thornton</td>
+	      <td>@fat</td>
+	    </tr>
+	    <tr>
+	      <th scope="row">3</th>
+	      <td>Larry</td>
+	      <td>the Bird</td>
+	      <td>@twitter</td>
+	    </tr>
+	  </tbody>
+	</table>
+</article>
+
+<%- include('footer') %>

@@ -13,19 +13,23 @@ const CommodityModel = require('../lib/commodity.js');
 
 router.get('/', (req, res) => {
 	CommodityModel.find({}, (err, data) => {
-			if (err) {
-				req.flash('error', err || '数据库查询失败')
-				return res.render('main', {
-					title: '主页',
-					commodityList: []
-				})
-			}
-			res.render('main', {
+		if (err) {
+			req.flash('error', err || '数据库查询失败')
+			return res.render('main', {
 				title: '主页',
-				commodityList: data
+				commodityList: []
 			})
+		}
+		res.render('main', {
+			title: '主页',
+			commodityList: data
 		})
+	})
 });
 
+router.post('/', (req, res) => {
+	console.log(req.body.id);
+	res.send('添加成功！')
+})
 
 module.exports = router;

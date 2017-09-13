@@ -27,6 +27,7 @@
     "express-session": "^1.15.4",
     "express-winston": "^2.4.0",
     "formidable": "^1.1.1",
+    "gm": "^1.23.0",
     "marked": "^0.3.6",
     "method-override": "^2.3.9",
     "mkdirp": "^0.5.1",
