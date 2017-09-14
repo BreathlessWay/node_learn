@@ -1,97 +1,94 @@
 <%- include('header') %>
 <article class="container">
-	<% if (success) {%>
-		<div class="alert alert-success" role="alert">		  
-			<%= success %>
-		</div>
-	<%}%>
-	<% if (error) {%>
-		<div class="alert alert-danger" role="alert">	  
-			<%= error %>
-		</div>
-	<%}%>
-	<% if (user) {%>
-	<header class="row">
-		<aside class="col nav-link">
-		  欢迎光临，亲爱的 
-		  <a href="/personal">
-		  	<%= user %>
-		  </a>
-		</aside>	
-		<nav class="nav  float-right">
-		  <a class="nav-link active" href="/addCommodity">添加商品</a>
-		  <a class="nav-link" href="/carts">购物车</a>
-		  <a class="nav-link" href="/logout">退出</a>	
-		</nav>
-	</header>
-	<%} else {%>
-	<aside class="float-right my-2">
-		<a href="/login">登陆</a>
-		&nbsp;&nbsp;
-		<a href="/register">注册</a>	
-		</aside>	
-	<% } %>
-	<div class="clearfix"></div>
+    <% if (success) {%>
+    <div class="alert alert-success" role="alert">
+        <%= success %>
+    </div>
+    <%}%>
+    <% if (error) {%>
+    <div class="alert alert-danger" role="alert">
+        <%= error %>
+    </div>
+    <%}%>
+    <% if (user) {%>
+    <header class="row">
+        <aside class="col nav-link">
+            欢迎光临，亲爱的
+            <a href="/personal">
+                <%= user %>
+            </a>
+        </aside>
+        <nav class="nav  float-right">
+            <a class="nav-link active" href="/addCommodity">添加商品</a>
+            <a class="nav-link" href="/carts">购物车</a>
+            <a class="nav-link" href="/logout">退出</a>
+        </nav>
+    </header>
+    <%} else {%>
+    <aside class="float-right my-2">
+        <a href="/login">登陆</a> &nbsp;&nbsp; <a href="/register">注册</a>
+    </aside>
+    <% } %>
+    <div class="clearfix"></div>
 
-	<nav aria-label="breadcrumb" role="navigation">
-	  <ol class="breadcrumb">
-	    <li class="breadcrumb-item active" aria-current="page">主页</li>
-	  </ol>
-	</nav>
+    <nav aria-label="breadcrumb" role="navigation">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item active" aria-current="page">主页</li>
+        </ol>
+    </nav>
 
-	<section class="row">
-		<% commodityList.forEach(function(list,index){ %>
-		<div class="col-md-3 mb-4" data-key="<%= index %>">
-			<div class="card">
-				<% if( list.imgSrc ) {%>
-				<img class="card-img-top" src=<%= list.imgSrc %> alt=<%= list.name %>  >
-				<% } else {%>
-				<img class="card-img-top" src="/img/default.png" alt=<%= list.name %>  >
-				<% } %>
-				<div class="card-body">
-					<h4 class="card-title text-truncate">
-						<a href="/addCommodity/<%= list._id %>" class='text-info'>
-						<%= list.name %>
-						</a>
-					</h4>
-					<p class="card-text text-truncate"><%= list.desc || list.name %></p>
-					<% if (user) { %>
-					<button class="btn btn-primary addCart" data-id="<%= list._id %>">
-					<% } else { %>
-					<a href="/login" class="btn btn-primary">
-					<% } %>
-						<span class="badge badge-danger">￥<%= list.price %></span>
-						加入购物车
-					</a>
-				</div>
-			</div>
-		</div>
-		<% }) %>
-	</section>
+    <section class="row">
+        <% commodityList.forEach(function(list,index){ %>
+        <div class="col-md-3 mb-4" data-key="<%= index %>">
+            <div class="card">
+                <% if( list.imgSrc ) {%>
+                <img class="card-img-top" src=<%= list.imgSrc %> alt=<%= list.name %> >
+                <% } else {%>
+                <img class="card-img-top" src="/img/default.png" alt=<%= list.name %> >
+                <% } %>
+                <div class="card-body">
+                    <h4 class="card-title text-truncate">
+                        <a href="/addCommodity/<%= list._id %>" class='text-info'>
+                            <%= list.name %>
+                        </a>
+                    </h4>
+                    <p class="card-text text-truncate"><%= list.desc || list.name %></p>
+                    <% if (user) { %>
+                    <button class="btn btn-primary addCart" data-id="<%= list._id %>">
+                        <% } else { %>
+                        <a href="/login" class="btn btn-primary">
+                            <% } %>
+                            <span class="badge badge-danger">￥<%= list.price %></span>
+                            加入购物车
+                        </a>
+                </div>
+            </div>
+        </div>
+        <% }) %>
+    </section>
 </article>
 <script type="text/javascript" charset="utf-8">
-	window.onload = function () {
-		var oAddCart = document.querySelectorAll(".addCart");
-		for(var i=0,len=oAddCart.length;i<len;i++){
-			(function (i) {
-				oAddCart[i].onclick = function (e) {
-					var id = e.target.getAttribute('data-id');
-					var  xmlhttprequest=new XMLHttpRequest(); 
-					xmlhttprequest.open("POST", '/', true);
-				        xmlhttprequest.setRequestHeader("Content-type", "application/json;charset=UTF-8");  // 添加http头，发送信息至服务器时内容编码类型
-				        xmlhttprequest.onreadystatechange = function() {
-				            if (xmlhttprequest.readyState == 4) { 
-				            	if(xmlhttprequest.status == 200 || xmlhttprequest.status == 304){  // 304未修改
-				                		alert(xmlhttprequest.response)
-				            	}else{
-					            	alert(xmlhttprequest.status +'  '+ xmlhttprequest.statusText)
-					            }
-				            }
-				        };
-				        xmlhttprequest.send(JSON.stringify({id:id}));
-				}
-			})(i)
-		}
-	}
-</script>
-<%- include('footer') %>
+  window.onload = function () {
+    var oAddCart = document.querySelectorAll('.addCart');
+    for (var i = 0, len = oAddCart.length; i < len; i++) {
+      (function (i) {
+        oAddCart[i].onclick = function (e) {
+          var id = e.target.getAttribute('data-id');
+          var xmlhttprequest = new XMLHttpRequest();
+          xmlhttprequest.open('POST', '/', true);
+          xmlhttprequest.setRequestHeader('Content-type', 'application/json;charset=UTF-8');  // 添加http头，发送信息至服务器时内容编码类型
+          xmlhttprequest.onreadystatechange = function () {
+            if (xmlhttprequest.readyState == 4) {
+              if (xmlhttprequest.status == 200 || xmlhttprequest.status == 304) {  // 304未修改
+                alert(xmlhttprequest.response);
+              } else {
+                alert(xmlhttprequest.status + '  ' + xmlhttprequest.statusText);
+              }
+            }
+          };
+          xmlhttprequest.send(JSON.stringify({id: id}));
+        };
+      })(i);
+    }
+  };
+</script><%- include('footer') %>

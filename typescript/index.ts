@@ -2,6 +2,6 @@ function greeter(person) {
     return "Hello, " + person;
 }
 
-var user = '';
+const user = '';
 
-document.body.innerHTML = greete();
+document.body.innerHTML = greeter(user);

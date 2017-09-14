@@ -1,99 +1,95 @@
 <%- include('header') %>
 
 <article class="container">
-	<% if (success) {%>
-		<div class="alert alert-success" role="alert">		  
-			<%= success %>
-		</div>
-	<%}%>
-	<% if (error) {%>
-		<div class="alert alert-danger" role="alert">	  
-			<%= error %>
-		</div>
-	<%}%>
-	<header class="row">
-		<aside class="col nav-link">
-		  欢迎光临，亲爱的 
-		  <a href="/personal">
-		  	<%= user %>
-		  </a>
-		</aside>	
-		<nav class="nav  float-right">
-		  <a class="nav-link" href="/carts">购物车</a>
-		  <a class="nav-link" href="/logout">退出</a>	
-		</nav>
-	</header>
+    <% if (success) {%>
+    <div class="alert alert-success" role="alert">
+        <%= success %>
+    </div>
+    <%}%>
+    <% if (error) {%>
+    <div class="alert alert-danger" role="alert">
+        <%= error %>
+    </div>
+    <%}%>
+    <header class="row">
+        <aside class="col nav-link">
+            欢迎光临，亲爱的
+            <a href="/personal">
+                <%= user %>
+            </a>
+        </aside>
+        <nav class="nav  float-right">
+            <a class="nav-link" href="/carts">购物车</a>
+            <a class="nav-link" href="/logout">退出</a>
+        </nav>
+    </header>
 
-	<nav aria-label="breadcrumb" role="navigation">
-	  <ol class="breadcrumb">
-	    <li class="breadcrumb-item"><a href="/">主页</a></li>
-	    <li class="breadcrumb-item active" aria-current="page"><%= title %></li>
-	  </ol>
-	</nav>
+    <nav aria-label="breadcrumb" role="navigation">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="/">主页</a></li>
+            <li class="breadcrumb-item active" aria-current="page"><%= title %></li>
+        </ol>
+    </nav>
 
-	<form class="mx-auto col-sm-6" method="post"  enctype="multipart/form-data">
-	  <div class="form-group">
-	    <label for="name">商品名称：</label>
-	    <input type="text" class="form-control" id="name" placeholder="商品名称" name="name" aria-describedby="name-info" value="<%= initialData.name %>">
-	    <small id="name-info" class="form-text text-muted">商品名称只能为为6-12位的英文汉字数字</small>
-	  </div>
-	 <div class="form-group">
-	    <label for="price">商品价格：</label>
-	    <div class="input-group mb-2 mb-sm-0">
-		<div class="input-group-addon">￥</div>
-		<input type="price" class="form-control" id="price" placeholder="0.00" name="price" aria-describedby="price-info" value="<%= initialData.price %>">
-		<span class="input-group-addon">元</span>
-	    </div>
-	    <small id="price-info" class="form-text text-muted">商品价格只能为数字0.00</small>
-	  </div>
-	  <div class="form-group">
-	  <div class="form-group">
-	    <label for="imgSrc">商品图片：</label>
-	    <input type="file" class="form-control-file" id="imgSrc" name="imgSrc" aria-describedby="imgSrc-info">
-	    <small id="imgSrc-info" class="form-text text-muted">商品图片只能为小于2M得jpg，png，jpeg图片</small>
-	  </div>
-	  <% if( initialData.imgSrc ) {%>
-	  <div>
-	  	<img src="<%= initialData.imgSrc %>" class="img-fluid img-thumbnail" id="oldImgSrc"/>
-	  </div>
-	  <% } %>
-	  <img src="" alt="" id="uploadPreview" class="img-fluid img-thumbnail" style="display: none" />
-	  <div class="form-group">
-	    <label for="desc">商品描述：</label>
-	    <textarea class="form-control" id="desc" rows="3" name="desc" aria-describedby="desc-info"><%= initialData.desc %></textarea>
-	    <small id="desc-info" class="form-text text-muted">商品描述字数不能大于200字</small>
-	  </div>
-	  <div class="text-center">
-		<button type="submit" class="btn btn-primary">发布</button>
-		<% if(initialData.name){ %>
-		&nbsp;
-		<button class="btn btn-primary commodity-delete">删除</button>
-		<% } %>
-		&nbsp;
-		<a href="/" class="btn  btn-outline-primary">返回</a>
-	  </div>
-	</form>
+    <form class="mx-auto col-sm-6" method="post" enctype="multipart/form-data">
+        <div class="form-group">
+            <label for="name">商品名称：</label>
+            <input type="text" class="form-control" id="name" placeholder="商品名称" name="name" aria-describedby="name-info" value="<%= initialData.name %>">
+            <small id="name-info" class="form-text text-muted">商品名称只能为为6-12位的英文汉字数字</small>
+        </div>
+        <div class="form-group">
+            <label for="price">商品价格：</label>
+            <div class="input-group mb-2 mb-sm-0">
+                <div class="input-group-addon">￥</div>
+                <input type="price" class="form-control" id="price" placeholder="0.00" name="price" aria-describedby="price-info" value="<%= initialData.price %>">
+                <span class="input-group-addon">元</span>
+            </div>
+            <small id="price-info" class="form-text text-muted">商品价格只能为数字0.00</small>
+        </div>
+        <div class="form-group">
+            <label for="imgSrc">商品图片：</label>
+            <input type="file" class="form-control-file" id="imgSrc" name="imgSrc" aria-describedby="imgSrc-info">
+            <small id="imgSrc-info" class="form-text text-muted">商品图片只能为小于2M得jpg，png，jpeg图片</small>
+        </div>
+        <% if( initialData.imgSrc ) {%>
+        <div>
+            <img src="<%= initialData.imgSrc %>" class="img-fluid img-thumbnail" id="oldImgSrc"/>
+        </div>
+        <% } %>
+        <img src="" alt="" id="uploadPreview" class="img-fluid img-thumbnail" style="display: none"/>
+        <div class="form-group">
+            <label for="desc">商品描述：</label>
+            <textarea class="form-control" id="desc" rows="3" name="desc" aria-describedby="desc-info"><%= initialData.desc %></textarea>
+            <small id="desc-info" class="form-text text-muted">商品描述字数不能大于200字</small>
+        </div>
+        <div class="text-center">
+            <button type="submit" class="btn btn-primary">发布</button>
+            <% if(initialData.name){ %> &nbsp;
+            <button class="btn btn-primary commodity-delete">删除</button>
+            <% } %> &nbsp; <a href="/" class="btn  btn-outline-primary">返回</a>
+        </div>
+    </form>
 </article>
 <script type="text/javascript" charset="utf-8">
-	window.onload = function () {
-		var fileReader = new FileReader();
-		var rFilter = /^(?:image\/bmp|image\/jpeg|image\/png)$/i;
-		var oUploadPreview = document.getElementById("uploadPreview");
-		var oImgSrc = document.getElementById("imgSrc");
-		var oOldImgSrc = document.getElementById("oldImgSrc");
+  window.onload = function () {
+    var fileReader = new FileReader();
+    var rFilter = /^(?:image\/bmp|image\/jpeg|image\/png)$/i;
+    var oUploadPreview = document.getElementById('uploadPreview');
+    var oImgSrc = document.getElementById('imgSrc');
+    var oOldImgSrc = document.getElementById('oldImgSrc');
 
-		fileReader.onload = function (event) {
-		  oUploadPreview.src = event.target.result;
-		};
-		oImgSrc.onchange = function () {
-			if (oImgSrc.files.length === 0) return;
-			if (!rFilter.test(oImgSrc.files[0].type)) return;
-			if(oOldImgSrc){
-				oOldImgSrc.style.display = 'none';
-			};
-			oUploadPreview.style.display = 'block';
-			fileReader.readAsDataURL(oImgSrc.files[0]);
-		}
-	}
-</script>
-<%- include('footer') %>
+    fileReader.onload = function (event) {
+      oUploadPreview.src = event.target.result;
+    };
+    oImgSrc.onchange = function () {
+      if (oImgSrc.files.length === 0) return;
+      if (!rFilter.test(oImgSrc.files[0].type)) return;
+      if (oOldImgSrc) {
+        oOldImgSrc.style.display = 'none';
+      }
+      ;
+      oUploadPreview.style.display = 'block';
+      fileReader.readAsDataURL(oImgSrc.files[0]);
+    };
+  };
+</script><%- include('footer') %>

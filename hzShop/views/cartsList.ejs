@@ -1,97 +1,96 @@
 <%- include('header') %>
 
 <article class="container">
-	<% if (success) {%>
-		<div class="alert alert-success" role="alert">		  
-			<%= success %>
-		</div>
-	<%}%>
-	<% if (error) {%>
-		<div class="alert alert-danger" role="alert">	  
-			<%= error %>
-		</div>
-	<%}%>
-	<header class="row">
-		<aside class="col nav-link">
-		  欢迎光临，亲爱的 
-		  <a href="/personal">
-		  	<%= user %>
-		  </a>
-		</aside>	
-		<nav class="nav  float-right">
-		  <a class="nav-link active" href="/addCommodity">添加商品</a>
-		  <a class="nav-link" href="/logout">退出</a>	
-		</nav>
-	</header>
-	<div class="clearfix"></div>
+    <% if (success) {%>
+    <div class="alert alert-success" role="alert">
+        <%= success %>
+    </div>
+    <%}%>
+    <% if (error) {%>
+    <div class="alert alert-danger" role="alert">
+        <%= error %>
+    </div>
+    <%}%>
+    <header class="row">
+        <aside class="col nav-link">
+            欢迎光临，亲爱的
+            <a href="/personal">
+                <%= user %>
+            </a>
+        </aside>
+        <nav class="nav  float-right">
+            <a class="nav-link active" href="/addCommodity">添加商品</a>
+            <a class="nav-link" href="/logout">退出</a>
+        </nav>
+    </header>
+    <div class="clearfix"></div>
 
-	<nav aria-label="breadcrumb" role="navigation">
-	  <ol class="breadcrumb">
-	    <li class="breadcrumb-item active" aria-current="page"><a href="/">主页</a></li>
-	    <li class="breadcrumb-item">购物车</li>
-	  </ol>
-	</nav>
-	<table class="table">
-	  <thead>
-	    <tr>
-	      <th scope="col">
-	      	<input type="checkbox" id="all-check"/>
-	      </th>
-	      <th scope="col">
-		商品
-	      </th>
-	      <th scope="col">
-		价格(单价/元)
-	      </th>
-	      <th scope="col">
-		数量
-	      </th>
-	      <th scope="col">
-		操作
-	      </th>
-	    </tr>
-	  </thead>
-	  <tbody>
-	  <% cartList.forEach(function(list){ if(!list.cStatus) {%>
-	    <tr class="cart-list-tr">
-	      <th scope="row" class="align-middle">
-		<input type="checkbox" class="cart-list_check" data-id="<%= list._id %>">
-	      </th>
-	      <td>
-		<div class="media align-items-center">
-		  <img class="mr-3" src="<%= list.cImgSrc %>" alt="<%= list.cName %>" style="max-width: 150px">
-		  <div class="media-body">
-		    <h5 class="mt-0"><%= list.cName %></h5>
-		  </div>
-		</div>
-	      </td>
-	      <td class="align-middle">
+    <nav aria-label="breadcrumb" role="navigation">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item active" aria-current="page"><a href="/">主页</a></li>
+            <li class="breadcrumb-item">购物车</li>
+        </ol>
+    </nav>
+    <table class="table">
+        <thead>
+        <tr>
+            <th scope="col">
+                <input type="checkbox" id="all-check"/>
+            </th>
+            <th scope="col">
+                商品
+            </th>
+            <th scope="col">
+                价格(单价/元)
+            </th>
+            <th scope="col">
+                数量
+            </th>
+            <th scope="col">
+                操作
+            </th>
+        </tr>
+        </thead>
+        <tbody>
+        <% cartList.forEach(function(list){ if(!list.cStatus) {%>
+        <tr class="cart-list-tr">
+            <th scope="row" class="align-middle">
+                <input type="checkbox" class="cart-list_check" data-id="<%= list._id %>">
+            </th>
+            <td>
+                <div class="media align-items-center">
+                    <img class="mr-3" src="<%= list.cImgSrc %>" alt="<%= list.cName %>" style="max-width: 150px">
+                    <div class="media-body">
+                        <h5 class="mt-0"><%= list.cName %></h5>
+                    </div>
+                </div>
+            </td>
+            <td class="align-middle">
 		      <span class="cart-list_price">
 		      	<%= list.cPrice  %>
 		      </span>
-	      </td>
-	      <td class="align-middle">
-	      	<input type="number" value="<%= list.cQuantity %>" class="cart-list_quantity" min=1 max=9>
-	      </td>
-	      <td class="align-middle">
-	      	<button class="btn btn-primary btn-sm cart-list_delete" type="submit" data-id="<%= list._id %>">删除</button>
-	      </td>
-	    </tr>
-	  <% }}) %>
-	    <tr>
-	    	<td colspan="4" class="text-right align-middle">
+            </td>
+            <td class="align-middle">
+                <input type="number" value="<%= list.cQuantity %>" class="cart-list_quantity" min=1 max=9>
+            </td>
+            <td class="align-middle">
+                <button class="btn btn-primary btn-sm cart-list_delete" type="submit" data-id="<%= list._id %>">删除</button>
+            </td>
+        </tr>
+        <% }}) %>
+        <tr>
+            <td colspan="4" class="text-right align-middle">
 	    		<span>
 	    			总计：
 	    		</span>
-	    		<h3 class="cart-list-price_count pr-5 text-danger mb-0 d-inline-block">
-	    			￥<span><%= priceCount.toFixed(2) %></span>
-	    		</h3>
-	    	</td>
-	    	<td class="align-middle">
-	      	   <button class="btn btn-success cart-list_account">结算</button>
-	    	</td>
-	    </tr>
-	  </tbody>
-	</table>
-</article>
-<%- include('footer') %>
+                <h3 class="cart-list-price_count pr-5 text-danger mb-0 d-inline-block">
+                    ￥<span><%= priceCount.toFixed(2) %></span>
+                </h3>
+            </td>
+            <td class="align-middle">
+                <button class="btn btn-success cart-list_account">结算</button>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</article><%- include('footer') %>
