@@ -15,7 +15,6 @@ const {
 } = require('../middleware/checkAuth.js');
 const CartsModel = require('../lib/carts.js');
 const UserModel = require('../lib/user.js');
-const CommodityModel = require('../lib/commodity.js');
 
 router.use(checkLogin);
 
@@ -43,10 +42,8 @@ router.get('/', (req, res) => {
 					priceCount: 0
 				});
 			}
-			const cIds = [];
 			let priceCount = 0;
 			cartData.forEach((list, index) => {
-				cIds.push(list.cId);
 				priceCount = priceCount + list.cQuantity * list.cPrice
 			})
 			return res.render('cartsList', {

@@ -70,6 +70,7 @@ router.post('/', (req, res) => {
 						uId: userData._id,
 						cId: req.body.id,
 						cName: commodityData.name,
+						cDesc: commodityData.desc,
 						cPrice: commodityData.price,
 						cImgSrc: commodityData.imgSrc,
 						cQuantity: 1,

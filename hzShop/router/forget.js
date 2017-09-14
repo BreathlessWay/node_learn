@@ -19,7 +19,7 @@ router.use(checkNotLogin);
 
 router.get('/', (req, res) => {
 	res.render('register', {
-		title: '注册'
+		title: '找回密码'
 	})
 });
 
@@ -45,34 +45,24 @@ router.post('/', (req, res) => {
 		};
 	} catch (e) {
 		req.flash('error', e.message);
-		return res.redirect('/register');
+		return res.redirect('/forget');
 	};
-	UserModel.find({
+	UserModel.findOneAndUpdate({
 		name: req.body.user
+	}, {
+		password: req.body.password
 	}, (err, data) => {
 		if (err) {
 			req.flash('error', '数据库连接失败');
-			return res.redirect('/register');
+			return res.redirect('/forget');
 		};
-		if (data.length > 0) {
-			req.flash('error', '用户名已注册');
-			return res.redirect('/register');
+		if (!data) {
+			req.flash('error', '用户名未注册');
+			return res.redirect('/forget');
 		};
-		const user = new UserModel({
-			name: req.body.user,
-			password: req.body.password
-		});
-		user.save()
-			.then(() => {
-				req.session.user = req.body.user;
-				req.flash('success', '注册成功');
-				res.redirect('/')
-			})
-			.catch(err => {
-				req.flash('error', '注册失败');
-				res.redirect('/register')
-			});
-
+		req.session.user = req.body.user
+		req.flash('success', '密码重置成功');
+		res.redirect('/');
 	})
 });
 
