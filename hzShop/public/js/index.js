@@ -79,5 +79,22 @@ $(function() {
 				}
 			})
 		}
+	});
+
+	$('.commodity-delete').on('click', function(e) {
+		e.preventDefault();
+		$.ajax({
+			url: location.pathname,
+			type: 'delete',
+			success: function(res) {
+				location.replace('/')
+			},
+			error: function(err) {
+				alert(err)
+			},
+			complete: function() {
+				console.log('complete');
+			}
+		})
 	})
 })

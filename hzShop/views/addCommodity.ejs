@@ -19,7 +19,7 @@
 		  </a>
 		</aside>	
 		<nav class="nav  float-right">
-		  <a class="nav-link" href="#">购物车</a>
+		  <a class="nav-link" href="/carts">购物车</a>
 		  <a class="nav-link" href="/logout">退出</a>	
 		</nav>
 	</header>
@@ -65,6 +65,10 @@
 	  </div>
 	  <div class="text-center">
 		<button type="submit" class="btn btn-primary">发布</button>
+		<% if(initialData.name){ %>
+		&nbsp;
+		<button class="btn btn-primary commodity-delete">删除</button>
+		<% } %>
 		&nbsp;
 		<a href="/" class="btn  btn-outline-primary">返回</a>
 	  </div>

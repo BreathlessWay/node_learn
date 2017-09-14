@@ -15,6 +15,7 @@ const {
 } = require('../middleware/checkAuth.js');
 const CartsModel = require('../lib/carts.js');
 const UserModel = require('../lib/user.js');
+const CommodityModel = require('../lib/commodity.js');
 
 router.use(checkLogin);
 
@@ -27,7 +28,7 @@ router.get('/', (req, res) => {
 			return res.render('cartsList', {
 				title: '购物车',
 				cartList: [],
-				priceCouont: 0
+				priceCount: 0
 			});
 		}
 		CartsModel.find({
@@ -39,17 +40,19 @@ router.get('/', (req, res) => {
 				return res.render('cartsList', {
 					title: '购物车',
 					cartList: [],
-					priceCouont: 0
+					priceCount: 0
 				});
 			}
-			let priceCouont = 0;
+			const cIds = [];
+			let priceCount = 0;
 			cartData.forEach((list, index) => {
-				priceCouont = priceCouont + list.cQuantity * list.cPrice
+				cIds.push(list.cId);
+				priceCount = priceCount + list.cQuantity * list.cPrice
 			})
 			return res.render('cartsList', {
 				title: '购物车',
 				cartList: cartData,
-				priceCouont
+				priceCount
 			});
 		})
 	})
@@ -68,6 +71,7 @@ router.delete('/:id', (req, res) => {
 
 router.post('/', (req, res) => {
 	const cartList = req.body.params;
+	let count = cartList.length;
 	cartList.forEach((list, index) => {
 		CartsModel.findByIdAndUpdate(list.cId, {
 			$set: {
@@ -78,10 +82,15 @@ router.post('/', (req, res) => {
 			new: true
 		}, (err, data) => {
 			if (err) {
-				return res.send(err || '结算失败！')
+				return
 			}
-			res.send('结算成功！')
+			count--;
 		})
 	})
+	if (count == 0) {
+		res.send('结算成功！')
+	} else {
+		res.send('结算失败！')
+	}
 })
 module.exports = router;

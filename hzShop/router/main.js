@@ -36,18 +36,21 @@ router.post('/', (req, res) => {
 		if (err) {
 			res.status(400).send('数据库查询失败！')
 		}
-		CartsModel.findOne({
+		CartsModel.find({
 			uId: userData._id,
 			cId: req.body.id
 		}, (err, cartData) => {
 			if (err) {
 				return res.status(400).send('数据库查询失败！')
 			}
-			if (cartData) {
-				const num = +cartData.cQuantity + 1;
+			const notAccount = cartData.filter(list => !list.cStatus);
+			if (notAccount.length > 0) {
+				const needAccount = notAccount[0];
+				const num = +needAccount.cQuantity + 1;
 				CartsModel.updateOne({
 					uId: userData._id,
-					cId: req.body.id
+					cId: req.body.id,
+					cStatus: false
 				}, {
 					$set: {
 						cQuantity: num

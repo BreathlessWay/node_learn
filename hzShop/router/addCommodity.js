@@ -18,6 +18,8 @@ const {
 
 const config = require('../config/index.js');
 const CommodityModel = require('../lib/commodity.js');
+const CartsModel = require('../lib/carts.js');
+const UserModel = require('../lib/user.js');
 const multer = require('multer');
 const upload = multer({});
 
@@ -155,6 +157,31 @@ router.post('/:id?', upload.single('imgSrc'), (req, res) => {
 				});
 		}
 	}
+});
+
+router.delete('/:id', (req, res) => {
+	UserModel.findOne({
+		name: req.session.user
+	}, (err, userData) => {
+		if (err) {
+			return res.send('商品删除失败！')
+		}
+		CommodityModel.findByIdAndRemove(req.params.id, err => {
+			if (err) {
+				return res.send('商品删除失败！')
+			}
+			CartsModel.findOneAndRemove({
+				uId: userData._id,
+				cId: req.params.id,
+				cStatus: false,
+			}, err => {
+				if (err) {
+					return res.send('商品删除失败！')
+				}
+				return res.send('商品删除成功！')
+			})
+		})
+	})
 })
 
 module.exports = router;
