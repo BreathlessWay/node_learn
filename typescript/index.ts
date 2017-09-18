@@ -39,3 +39,15 @@ function mgg(a: string, b?: string, c: string = 'f') {
 }
 
 mgg('fff')
+
+class PP {
+    name;
+
+    eat() {
+        console.log(this.name)
+    }
+}
+
+var p1 = new PP()
+p1.name = 'yfge'
+p1.eat()

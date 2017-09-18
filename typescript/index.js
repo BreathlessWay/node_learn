@@ -30,4 +30,15 @@ function mgg(a, b, c) {
     console.log(c);
 }
 mgg('fff');
+var PP = (function () {
+    function PP() {
+    }
+    PP.prototype.eat = function () {
+        console.log(this.name);
+    };
+    return PP;
+}());
+var p1 = new PP();
+p1.name = 'yfge';
+p1.eat();
 var _a;
