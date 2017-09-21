@@ -1,44 +1,61 @@
-function temp(template, name, cb) {
-    console.log({ template: template });
-    console.log(name);
-    console.log(cb());
-}
-var a = 'fff';
-var c = 0;
-var b = function () {
-    return 15;
+var __assign = (this && this.__assign) || Object.assign || function(t) {
+    for (var s, i = 1, n = arguments.length; i < n; i++) {
+        s = arguments[i];
+        for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p))
+            t[p] = s[p];
+    }
+    return t;
 };
-(_a = ["i am fuck ", " ,but ", ""], _a.raw = ["i am fuck ", " ,but ", ""], temp(_a, a, b));
-a = 13;
-c = 'f';
-function mm(name) {
-    return "gg";
+var num = 1;
+num = undefined;
+var str = 'str';
+str = null;
+var arr = [1, 2, 3];
+var array = [1, 2, 6];
+console.log(num, str, arr, array);
+var typeArr = ['ts', 4];
+typeArr[0] = '2';
+typeArr[3] = 6;
+var Color;
+(function (Color) {
+    Color[Color["Red"] = 1] = "Red";
+    Color[Color["Green"] = 2] = "Green";
+    Color[Color["Blue"] = 3] = "Blue";
+})(Color || (Color = {}));
+var color = Color[2];
+console.log(color);
+var any = 1;
+any = any.toFixed(1);
+console.log(any);
+var obj = 1;
+// obj.toFixed(1);
+console.log(obj);
+var anyArr = [1, 'e', { a: 1 }];
+anyArr[6] = true;
+console.log(anyArr[6]);
+var dy = '2222';
+var dyLength = dy.length;
+console.log(dyLength);
+function foo() {
+    // okay to capture 'a'
+    return a;
 }
-mm('1');
-var Person = (function () {
-    function Person() {
-    }
-    return Person;
-}());
-var person = new Person();
-console.log(person.name = 1);
-console.log(person.age = 1);
-function mgg(a, b, c) {
-    if (c === void 0) { c = 'f'; }
-    console.log(a);
-    console.log(b);
-    console.log(c);
+// 不能在'a'被声明前调用'foo'
+// 运行时应该抛出错误
+console.log(foo());
+var a = 1;
+var _a = [1, 3], one = _a[0], two = _a[1];
+console.log(one);
+function little(_a) {
+    var name = _a.name, age = _a.age, food = _a.food;
+    var a = { sex: 'female' };
+    console.log("My name is " + name + " , i am " + (age || 0) + " years old , i like eat " + food);
+    return a;
 }
-mgg('fff');
-var PP = (function () {
-    function PP() {
-    }
-    PP.prototype.eat = function () {
-        console.log(this.name);
-    };
-    return PP;
-}());
-var p1 = new PP();
-p1.name = 'yfge';
-p1.eat();
-var _a;
+var p1 = { name: 'fuck', age: 10, food: [] };
+console.log(little({ name: 'Mike', food: ['f', 't'] }));
+var readOnlyArr = [1, 2];
+function te(test) {
+    console.log(__assign({}, test));
+}
+te({ color: 'red', padding: 1, size: 10 });

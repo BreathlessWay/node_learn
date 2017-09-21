@@ -1,53 +1,77 @@
-function temp(template, name, cb) {
-    console.log({template})
-    console.log(name)
-    console.log(cb())
+let num: number = 1;
+num = undefined;
+let str: string = 'str';
+str = null;
+const arr: number[] = [1, 2, 3];
+const array: Array<number> = [1, 2, 6];
+console.log(num, str, arr, array);
+const typeArr: [string, number] = ['ts', 4];
+typeArr[0] = '2';
+typeArr[3] = 6;
+
+enum Color {Red = 1, Green, Blue}
+
+let color: string = Color[2];
+
+console.log(color);
+
+let any: any = 1;
+any = any.toFixed(1);
+console.log(any);
+
+let obj: Object = 1;
+// obj.toFixed(1);
+console.log(obj);
+
+const anyArr: any[] = [1, 'e', {a: 1}];
+anyArr[6] = true;
+console.log(anyArr[6]);
+
+const dy: any = '2222';
+const dyLength: number = (<string>dy).length;
+console.log(dyLength);
+
+function foo () {
+    // okay to capture 'a'
+    return a;
 }
 
-var a: any = 'fff'
-var c: number = 0
-var b = function () {
-    return 15
+// 不能在'a'被声明前调用'foo'
+// 运行时应该抛出错误
+console.log(foo());
+
+let a = 1;
+
+const [one, two] = [1, 3];
+console.log(one);
+
+interface Person {
+    readonly  name: string,
+    age?: number,
+    food: Array<string>
 }
 
-temp`i am fuck ${a} ,but ${b}`
-
-a = 13
-c = 'f'
-
-
-function mm(name: string): void {
-    return "gg"
+function little ({name, age, food}: Person): { sex: string } {
+    let a = {sex: 'female'};
+    console.log(`My name is ${name} , i am ${age || 0} years old , i like eat ${food}`);
+    return a;
 }
 
-mm('1')
+let p1: Person = {name: 'fuck', age: 10, food: []};
 
-class Person {
-    name: any
-    age: number
+console.log(little({name: 'Mike', food: ['f', 't']}));
+
+let readOnlyArr: ReadonlyArray<number> = [1, 2];
+
+interface Test {
+    color?: string;
+    size?: number;
+
+    [propName: string]: any
 }
 
-var person = new Person()
-console.log(person.name = 1)
-console.log(person.age = 1)
-
-
-function mgg(a: string, b?: string, c: string = 'f') {
-    console.log(a)
-    console.log(b)
-    console.log(c)
+function te (test: Test) {
+    console.log({...test});
 }
 
-mgg('fff')
-
-class PP {
-    name;
-
-    eat() {
-        console.log(this.name)
-    }
-}
-
-var p1 = new PP()
-p1.name = 'yfge'
-p1.eat()
+te({color: 'red', padding: 1, size: 10});
