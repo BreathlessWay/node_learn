@@ -1,11 +1,3 @@
-var __assign = (this && this.__assign) || Object.assign || function(t) {
-    for (var s, i = 1, n = arguments.length; i < n; i++) {
-        s = arguments[i];
-        for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p))
-            t[p] = s[p];
-    }
-    return t;
-};
 var num = 1;
 num = undefined;
 var str = 'str';
@@ -56,6 +48,11 @@ var p1 = { name: 'fuck', age: 10, food: [] };
 console.log(little({ name: 'Mike', food: ['f', 't'] }));
 var readOnlyArr = [1, 2];
 function te(test) {
-    console.log(__assign({}, test));
+    console.log(test);
 }
-te({ color: 'red', padding: 1, size: 10 });
+var nm = { color: 'red', padding: 1, size: 10 };
+te(nm);
+var func = function (sf, sd) {
+    console.log(sf, sd);
+};
+func('1', 1);

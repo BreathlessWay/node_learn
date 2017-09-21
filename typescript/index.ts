@@ -66,12 +66,21 @@ let readOnlyArr: ReadonlyArray<number> = [1, 2];
 interface Test {
     color?: string;
     size?: number;
-
-    [propName: string]: any
 }
 
 function te (test: Test) {
-    console.log({...test});
+    console.log(test);
 }
 
-te({color: 'red', padding: 1, size: 10});
+const nm = {color: 'red', padding: 1, size: 10};
+te(nm);
+
+
+interface Func {
+    (s1: string, s2: number)
+}
+
+let func: Func = function (sf, sd) {
+    console.log(sf, sd);
+};
+func('1', 1);
