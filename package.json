@@ -5,7 +5,8 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "login": "supervisor --harmony ./login/index.js",
-    "shop": "supervisor --harmony ./hzShop/app.js"
+    "shop": "supervisor --harmony ./hzShop/app.js",
+    "blog": "supervisor --harmony ./blog/index.js"
   },
   "author": "",
   "license": "ISC",
