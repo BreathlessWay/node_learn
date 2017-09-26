@@ -10,23 +10,36 @@
                 <a class="dropdown-item" href="/signin">登陆</a>
             </div>
         </nav>
-        <form class="col-6 mx-auto mt-5">
+        <form class="col-6 mx-auto mt-5" method="post">
             <div class="form-group">
-                <label for="exampleInputEmail1">Email address</label>
-                <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email">
-                <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+                <label for="username">用户名：</label>
+                <input type="text" class="form-control" id="username" aria-describedby="username" name="username" placeholder="用户名">
+                <small id="username" class="form-text text-muted">请输入用户名</small>
             </div>
             <div class="form-group">
-                <label for="exampleInputPassword1">Password</label>
-                <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password">
+                <label for="password">密码：</label>
+                <input type="password" class="form-control" id="password" name="password" placeholder="密码">
             </div>
-            <div class="form-check">
-                <label class="form-check-label">
-                    <input type="checkbox" class="form-check-input">
-                    Check me out
-                </label>
+            <div class="form-group">
+                <label for="password_repeat">重复密码：</label>
+                <input type="password" class="form-control" id="password_repeat" name="password_repeat" placeholder="重复密码">
             </div>
-            <button type="submit" class="btn btn-primary">Submit</button>
+            <div class="form-group">
+                <label for="sex">性别：</label>
+                <select class="form-control" id="sex" name="sex">
+                    <option>男</option>
+                    <option>女</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="avatar">头像：</label>
+                <input type="file" class="form-control-file" id="avatar" name="avatar" accept="image/jpeg,image/gif,image/png">
+            </div>
+            <div class="form-group">
+                <label for="intro">个人介绍：</label>
+                <textarea class="form-control" id="intro" rows="3" name="intro" placeholder="个人简介"></textarea>
+            </div>
+            <button type="submit" class="btn btn-primary btn-block mt-5">注册</button>
         </form>
     </section>
 </article>
