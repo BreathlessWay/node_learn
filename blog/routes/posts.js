@@ -4,9 +4,9 @@ const {checkLogin} = require('../middlewares/check');
 
 //获取文章列表
 router.get('/', (req, res, next) => {
-    res.render('posts', {
-        title: '文章列表',
-        nav: [
+    let nav = [];
+    if (!req.session.user) {
+        nav = [
             {
                 title: '注册',
                 link: '/signup'
@@ -14,7 +14,24 @@ router.get('/', (req, res, next) => {
                 title: '登陆',
                 link: '/signin'
             }
-        ]
+        ];
+    } else {
+        nav = [
+            {
+                title: '个人主页',
+                link: '/signup'
+            }, {
+                title: '发表文章',
+                link: '/signin'
+            }, {
+                title: '退出',
+                link: '/signout'
+            }
+        ];
+    }
+    res.render('posts', {
+        title: '文章列表',
+        nav
     });
 });
 
