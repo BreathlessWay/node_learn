@@ -12,3 +12,14 @@
     <title><%= title %></title>
 </head>
 <body>
+<article class="container py-5">
+    <nav class="fixed-top col-6 mx-auto mt-2 text-right">
+        <button class="btn btn-info btn-sm" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            导航
+        </button>
+        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+            <% nav.forEach(function(list){ %>
+            <a class="dropdown-item" href="<%= list.link %>"><%= list.title %></a>
+            <% }) %>
+        </div>
+    </nav>

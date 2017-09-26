@@ -4,7 +4,18 @@ const {checkLogin} = require('../middlewares/check');
 
 //获取文章列表
 router.get('/', (req, res, next) => {
-    res.end('hh');
+    res.render('posts', {
+        title: '文章列表',
+        nav: [
+            {
+                title: '注册',
+                link: '/signup'
+            }, {
+                title: '登陆',
+                link: '/signin'
+            }
+        ]
+    });
 });
 
 //发表文章

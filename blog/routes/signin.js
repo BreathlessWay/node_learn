@@ -4,7 +4,19 @@ const {checkNotLogin} = require('../middlewares/check');
 
 //登陆页
 router.get('/', checkNotLogin, (req, res, next) => {
-    res.end('hh');
+    res.render('signin', {
+        title: '登陆',
+        nav: [
+            {
+                title: '主页',
+                link: '/'
+            },
+            {
+                title: '注册',
+                link: '/signup'
+            }
+        ]
+    });
 });
 
 //登陆

@@ -5,7 +5,17 @@ const {checkNotLogin} = require('../middlewares/check');
 //注册页
 router.get('/', checkNotLogin, (req, res, next) => {
     res.render('signup', {
-        title: '注册'
+        title: '注册',
+        nav: [
+            {
+                title: '主页',
+                link: '/'
+            },
+            {
+                title: '登陆',
+                link: '/signin'
+            }
+        ]
     });
 });
 

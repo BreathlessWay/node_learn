@@ -1,20 +1,10 @@
 <%- include('header') %>
 <article class="container">
     <section class="row">
-        <nav class="fixed-top col-6 mx-auto mt-2 text-right">
-            <button class="btn btn-info btn-sm" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                导航
-            </button>
-            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                <a class="dropdown-item" href="/">主页</a>
-                <a class="dropdown-item" href="/signin">登陆</a>
-            </div>
-        </nav>
-        <form class="col-6 mx-auto mt-5" method="post">
+        <form class="col-6 mx-auto" method="post">
             <div class="form-group">
                 <label for="username">用户名：</label>
-                <input type="text" class="form-control" id="username" aria-describedby="username" name="username" placeholder="用户名">
-                <small id="username" class="form-text text-muted">请输入用户名</small>
+                <input type="text" class="form-control" id="username" name="username" placeholder="用户名">
             </div>
             <div class="form-group">
                 <label for="password">密码：</label>
@@ -22,7 +12,8 @@
             </div>
             <div class="form-group">
                 <label for="password_repeat">重复密码：</label>
-                <input type="password" class="form-control" id="password_repeat" name="password_repeat" placeholder="重复密码">
+                <input type="password" class="form-control" id="password_repeat" aria-describedby="password_repeat" name="password_repeat" placeholder="重复密码">
+                <small id="password_repeat" class="form-text text-muted">两次输入密码需一致</small>
             </div>
             <div class="form-group">
                 <label for="sex">性别：</label>
@@ -33,7 +24,8 @@
             </div>
             <div class="form-group">
                 <label for="avatar">头像：</label>
-                <input type="file" class="form-control-file" id="avatar" name="avatar" accept="image/jpeg,image/gif,image/png">
+                <input type="file" class="form-control-file" id="avatar" name="avatar" accept="image/jpeg,image/gif,image/png" aria-describedby="avatar">
+                <small id="avatar" class="form-text text-muted">只能上传2M以下的 jpg,jpeg,gif,png 图片</small>
             </div>
             <div class="form-group">
                 <label for="intro">个人介绍：</label>
