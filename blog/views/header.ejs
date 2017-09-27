@@ -23,4 +23,24 @@
             <% }) %>
         </div>
     </nav>
-    <h4 class="text-center mb-5"><%= title %></h4>
+    <h4 class="text-center mb-3"><%= title %></h4>
+    <aside class="row mb-3">
+        <div class="col-6  mx-auto">
+            <% if (success) { %>
+            <div class="alert alert-success alert-dismissible fade show" role="alert">
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                <%= success %>
+            </div>
+            <% } %>
+            <% if (error) { %>
+            <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                <%= error %>
+            </div>
+            <% } %>
+        </div>
+    </aside>

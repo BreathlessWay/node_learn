@@ -35,6 +35,11 @@ router.get('/', (req, res, next) => {
     });
 });
 
+//发表文章页
+router.get('/create', checkLogin, function(req, res, next) {
+    res.render('create');
+});
+
 //发表文章
 router.post('/', checkLogin, (req, res, next) => {
     res.end('ff');
