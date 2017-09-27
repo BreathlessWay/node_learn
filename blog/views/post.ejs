@@ -10,7 +10,20 @@
                 </p>
                 <div class="row text-secondary">
                     <p class="col">2015-10-15 10:55:30</p>
-                    <p class="col text-right">浏览(5) 留言(10)</p>
+                    <div class="col text-right">
+                        浏览(5) 留言(10)
+                        <% if (user){ %>
+                        <div class="dropdown d-inline-block">
+                            <a href="javascript:;" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="text-secondary">
+                                +
+                            </a>
+                            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                <a class="dropdown-item" href="/">编辑</a>
+                                <a class="dropdown-item" href="/">删除</a>
+                            </div>
+                        </div>
+                        <% } %>
+                    </div>
                 </div>
             </div>
         </div>
@@ -21,11 +34,29 @@
             <li class="media pb-3 mb-3 border border-top-0 border-left-0 border-right-0">
                 <img class="rounded  col-2 img-fluid" src="/img/1.jpeg" alt="Generic placeholder image">
                 <div class="media-body col-10">
-                    <p class="mt-0 mb-1"><span class="font-weight-bold">张三</span>&nbsp;&nbsp;<span class="text-secondary">2015-10-22 10:30:20</span></p>
+                    <div class="mt-0 d-flex justify-content-between">
+                        <p>
+                            <span class="font-weight-bold">张三</span>
+                            &nbsp;&nbsp;
+                            <span class="text-secondary">2015-10-22 10:30:20</span>
+                        </p>
+                        <% if (user){ %>
+                        <a href="/">删除</a>
+                        <% } %>
+                    </div>
                     Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque ante sollicitudin. Cras purus odio, vestibulum in vulputate at, tempus viverra turpis. Fusce condimentum nunc ac nisi vulputate fringilla. Donec lacinia congue felis in faucibus.
                 </div>
             </li>
         </ul>
+        <% if (user){ %>
+        <form method="post" action="/">
+            <div class="form-group">
+                <label for="comment"></label>
+                <textarea class="form-control" id="comment" rows="3" name="comment" placeholder="评论内容"></textarea>
+            </div>
+            <button type="submit" class="btn btn-primary">留言</button>
+        </form>
+        <% } %>
     </section>
 </article>
 <%- include('footer') %>
