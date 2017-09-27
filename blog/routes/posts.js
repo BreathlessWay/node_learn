@@ -36,7 +36,7 @@ router.get('/', (req, res, next) => {
 });
 
 //发表文章页
-router.get('/create', function (req, res, next) {
+router.get('/create', checkLogin, function (req, res, next) {
     res.render('create', {
         title: '发布文章',
         nav: [
@@ -61,7 +61,21 @@ router.post('/', checkLogin, (req, res, next) => {
 
 //文章详情
 router.get('/:postId', (req, res, next) => {
-    res.end('ff');
+    res.render('post', {
+        title: '文章详情',
+        nav: [
+            {
+                title: '主页',
+                link: '/'
+            }, {
+                title: '个人主页',
+                link: '/signin'
+            }, {
+                title: '退出',
+                link: '/signout'
+            }
+        ]
+    });
 });
 
 //编辑文章

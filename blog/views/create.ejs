@@ -1,24 +1,20 @@
 <%- include('header') %>
-<article class="container">
-    <section class="row">
-        <ul class="list-unstyled col-6 mx-auto">
-            <li class=" media pb-3 mb-3">
-                <img class="rounded  col-2 img-fluid" src="/img/1.jpeg" alt="Generic placeholder image">
-                <div class="media-body col-10">
-                    <form class="" method="post" action="/posts">
-                        <div class="form-group">
-                            <label for="title">标题：</label>
-                            <input type="text" class="form-control" id="title" name="title" placeholder="文章标题">
-                        </div>
-                        <div class="form-group">
-                            <label for="content">内容：</label>
-                            <textarea class="form-control" id="content" rows="3" name="content" placeholder="文章内容"></textarea>
-                        </div>
-                        <button type="submit" class="btn btn-primary btn-block mt-5">登陆</button>
-                    </form>
+<article class="row">
+    <section class=" media col-6 mx-auto">
+        <img class="rounded  col-2 img-fluid" src="/img/1.jpeg" alt="Generic placeholder image">
+        <div class="media-body col-10">
+            <form class="" method="post" action="/posts">
+                <div class="form-group">
+                    <label for="title">标题：</label>
+                    <input type="text" class="form-control" id="title" name="title" placeholder="文章标题">
                 </div>
-            </li>
-        </ul>
+                <div class="form-group">
+                    <label for="content">内容：</label>
+                    <textarea class="form-control" id="content" rows="3" name="content" placeholder="文章内容"></textarea>
+                </div>
+                <button type="submit" class="btn btn-primary btn-block mt-5">发布</button>
+            </form>
+        </div>
     </section>
 </article>
 <%- include('footer') %>
