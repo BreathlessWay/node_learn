@@ -36,8 +36,22 @@ router.get('/', (req, res, next) => {
 });
 
 //发表文章页
-router.get('/create', checkLogin, function(req, res, next) {
-    res.render('create');
+router.get('/create', function (req, res, next) {
+    res.render('create', {
+        title: '发布文章',
+        nav: [
+            {
+                title: '主页',
+                link: '/'
+            }, {
+                title: '个人主页',
+                link: '/signin'
+            }, {
+                title: '退出',
+                link: '/signout'
+            }
+        ]
+    });
 });
 
 //发表文章

@@ -2,11 +2,20 @@
 <article class="container">
     <section class="row">
         <ul class="list-unstyled col-6 mx-auto">
-            <li class=" media pb-3 mb-3 border border-top-0 border-left-0 border-right-0">
-                <img class="mr-3 rounded  col-4 img-fluid" src="/img/1.jpeg" alt="Generic placeholder image">
-                <div class="media-body col-8">
-                    <h5 class="mt-0 mb-1">List-based media object</h5>
-                    Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque ante sollicitudin. Cras purus odio, vestibulum in vulputate at, tempus viverra turpis. Fusce condimentum nunc ac nisi vulputate fringilla. Donec lacinia congue felis in faucibus.
+            <li class=" media pb-3 mb-3">
+                <img class="rounded  col-2 img-fluid" src="/img/1.jpeg" alt="Generic placeholder image">
+                <div class="media-body col-10">
+                    <form class="" method="post" action="/posts">
+                        <div class="form-group">
+                            <label for="title">标题：</label>
+                            <input type="text" class="form-control" id="title" name="title" placeholder="文章标题">
+                        </div>
+                        <div class="form-group">
+                            <label for="content">内容：</label>
+                            <textarea class="form-control" id="content" rows="3" name="content" placeholder="文章内容"></textarea>
+                        </div>
+                        <button type="submit" class="btn btn-primary btn-block mt-5">登陆</button>
+                    </form>
                 </div>
             </li>
         </ul>
