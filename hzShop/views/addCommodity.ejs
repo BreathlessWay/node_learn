@@ -1,16 +1,16 @@
 <%- include('header') %>
 
 <article class="container">
-    <% if (success) {%>
+    <% if (success) { %>
     <div class="alert alert-success" role="alert">
         <%= success %>
     </div>
-    <%}%>
-    <% if (error) {%>
+    <% } %>
+    <% if (error) { %>
     <div class="alert alert-danger" role="alert">
         <%= error %>
     </div>
-    <%}%>
+    <% } %>
     <header class="row">
         <aside class="col nav-link">
             欢迎光临，亲爱的
@@ -51,7 +51,7 @@
             <input type="file" class="form-control-file" id="imgSrc" name="imgSrc" aria-describedby="imgSrc-info">
             <small id="imgSrc-info" class="form-text text-muted">商品图片只能为小于2M得jpg，png，jpeg图片</small>
         </div>
-        <% if( initialData.imgSrc ) {%>
+        <% if( initialData.imgSrc ) { %>
         <div>
             <img src="<%= initialData.imgSrc %>" class="img-fluid img-thumbnail" id="oldImgSrc"/>
         </div>
@@ -64,32 +64,34 @@
         </div>
         <div class="text-center">
             <button type="submit" class="btn btn-primary">发布</button>
-            <% if(initialData.name){ %> &nbsp;
+            <% if(initialData.name){ %>
+            &nbsp;
             <button class="btn btn-primary commodity-delete">删除</button>
-            <% } %> &nbsp; <a href="/" class="btn  btn-outline-primary">返回</a>
+            <% } %>
+            &nbsp; <a href="/" class="btn  btn-outline-primary">返回</a>
         </div>
     </form>
 </article>
 <script type="text/javascript" charset="utf-8">
-  window.onload = function () {
-    var fileReader = new FileReader();
-    var rFilter = /^(?:image\/bmp|image\/jpeg|image\/png)$/i;
-    var oUploadPreview = document.getElementById('uploadPreview');
-    var oImgSrc = document.getElementById('imgSrc');
-    var oOldImgSrc = document.getElementById('oldImgSrc');
+    window.onload = function () {
+        var fileReader = new FileReader();
+        var rFilter = /^(?:image\/bmp|image\/jpeg|image\/png)$/i;
+        var oUploadPreview = document.getElementById('uploadPreview');
+        var oImgSrc = document.getElementById('imgSrc');
+        var oOldImgSrc = document.getElementById('oldImgSrc');
 
-    fileReader.onload = function (event) {
-      oUploadPreview.src = event.target.result;
+        fileReader.onload = function (event) {
+            oUploadPreview.src = event.target.result;
+        };
+        oImgSrc.onchange = function () {
+            if (oImgSrc.files.length === 0) return;
+            if (!rFilter.test(oImgSrc.files[0].type)) return;
+            if (oOldImgSrc) {
+                oOldImgSrc.style.display = 'none';
+            }
+            ;
+            oUploadPreview.style.display = 'block';
+            fileReader.readAsDataURL(oImgSrc.files[0]);
+        };
     };
-    oImgSrc.onchange = function () {
-      if (oImgSrc.files.length === 0) return;
-      if (!rFilter.test(oImgSrc.files[0].type)) return;
-      if (oOldImgSrc) {
-        oOldImgSrc.style.display = 'none';
-      }
-      ;
-      oUploadPreview.style.display = 'block';
-      fileReader.readAsDataURL(oImgSrc.files[0]);
-    };
-  };
 </script><%- include('footer') %>

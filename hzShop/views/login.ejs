@@ -7,11 +7,11 @@
         </ol>
     </nav>
     <h5 class="text-info text-center">快登陆看看</h5>
-    <% if (error) {%>
+    <% if (error) { %>
     <div class="alert alert-danger" role="alert">
         <%= error %>
     </div>
-    <%}%>
+    <% } %>
     <form method="post" action="/login" class="mx-auto col-sm-4">
         <div class="form-group">
             <label for="user">用户名：</label>

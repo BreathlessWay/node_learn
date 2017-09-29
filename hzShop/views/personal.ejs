@@ -1,15 +1,15 @@
 <%- include('header') %>
 <article class="container">
-    <% if (success) {%>
+    <% if (success) { %>
     <div class="alert alert-success" role="alert">
         <%= success %>
     </div>
-    <%}%>
-    <% if (error) {%>
+    <% } %>
+    <% if (error) { %>
     <div class="alert alert-danger" role="alert">
         <%= error %>
     </div>
-    <%}%>
+    <% } %>
     <header class="row">
         <aside class="col nav-link">
             欢迎光临，亲爱的
@@ -41,16 +41,16 @@
         <dt class="col-sm-1 mb-3">已购商品</dt>
         <dd class="col-sm-11 mb-3">
             <ul class="m-0 p-0 row">
-                <% accounted.forEach(function(list){%>
+                <% accounted.forEach(function(list){ %>
                 <li class="col-sm-3 pl-0 mb-4">
                     <div class="card">
-                        <% if( list.cImgSrc ) {%>
-                        <img class="card-img-top" src="<%= list.cImgSrc%>" alt=<%= list.cName %> >
-                        <% } else {%>
-                        <img class="card-img-top" src="/img/default.png" alt=<%= list.cName %> >
+                        <% if( list.cImgSrc ) { %>
+                        <img class="card-img-top" src="<%= list.cImgSrc %>" alt=<%= list.cName %>>
+                        <% } else { %>
+                        <img class="card-img-top" src="/img/default.png" alt=<%= list.cName %>>
                         <% } %>
                         <div class="card-body">
-                            <h4 class="card-title text-truncate"><%= list.cName%></h4>
+                            <h4 class="card-title text-truncate"><%= list.cName %></h4>
                             <p class="card-text text-truncate"><%= list.cDesc || list.cName %></p>
                             <span class="text-danger h4">$ <%= list.cPrice %></span>
                         </div>
@@ -58,7 +58,7 @@
                 </li>
                 <% }) %>
             </ul>
-            <% if(!accounted||accounted.length === 0) {%>
+            <% if(!accounted || accounted.length === 0) { %>
             <p class="text-info mb-0">还没有买过东西哦，<a href="/">快去买点什么吧</a></p>
             <% } %>
         </dd>
@@ -66,16 +66,16 @@
         <dt class="col-sm-1 mb-3">待付款</dt>
         <dd class="col-sm-11 mb-3">
             <ul class="m-0 p-0 row">
-                <% accounting.forEach(function(list){%>
+                <% accounting.forEach(function(list){ %>
                 <li class="col-sm-3 pl-0 mb-4">
                     <div class="card">
-                        <% if( list.cImgSrc ) {%>
-                        <img class="card-img-top" src="<%= list.cImgSrc%>" alt=<%= list.cName %> >
-                        <% } else {%>
-                        <img class="card-img-top" src="/img/default.png" alt=<%= list.cName %> >
+                        <% if( list.cImgSrc ) { %>
+                        <img class="card-img-top" src="<%= list.cImgSrc %>" alt=<%= list.cName %>>
+                        <% } else { %>
+                        <img class="card-img-top" src="/img/default.png" alt=<%= list.cName %>>
                         <% } %>
                         <div class="card-body">
-                            <h4 class="card-title text-truncate"><%= list.cName%></h4>
+                            <h4 class="card-title text-truncate"><%= list.cName %></h4>
                             <p class="card-text text-truncate"><%= list.cDesc || list.cName %></p>
                             <span class="text-danger h4">$ <%= list.cPrice %></span>
                         </div>
@@ -83,7 +83,7 @@
                 </li>
                 <% }) %>
             </ul>
-            <% if(accounting && accounting.length>0) {%>
+            <% if(accounting && accounting.length > 0) { %>
             <div class="text-right mt-3">
                 <a href="/carts" title="" class="btn btn-outline-primary">去结算</a>
             </div>

@@ -1,5 +1,5 @@
 /**
- * 
+ *
  * @authors BreathlessWay (731005087@qq.com)
  * @date    2017-09-07 16:35:03
  * @version $Id$
@@ -26,47 +26,47 @@ app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
 app.use(cookieParser(config.session.secret));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({
-	extended: false
+    extended: false
 }));
 
 app.use(session({
-	name: config.session.key, // 设置 cookie 中保存 session id 的字段名称
-	secret: config.session.secret, // 通过设置 secret 来计算 hash 值并放在 cookie 中，使产生的 signedCookie 防篡改
-	cookie: {
-		maxAge: config.session.maxAge // 过期时间，过期后 cookie 中的 session id 自动删除
-	},
-	store: new MongoStore({ // 将 session 存储到 mongodb
-		url: config.mongodb // mongodb 地址
-	}),
-	resave: true,
-	saveUninitialized: true
+    name: config.session.key, // 设置 cookie 中保存 session id 的字段名称
+    secret: config.session.secret, // 通过设置 secret 来计算 hash 值并放在 cookie 中，使产生的 signedCookie 防篡改
+    cookie: {
+        maxAge: config.session.maxAge // 过期时间，过期后 cookie 中的 session id 自动删除
+    },
+    store: new MongoStore({ // 将 session 存储到 mongodb
+        url: config.mongodb // mongodb 地址
+    }),
+    resave: true,
+    saveUninitialized: true
 }));
 
 app.use(flash());
 
 app.use((req, res, next) => {
-	res.locals.user = req.session.user;
-	res.locals.success = req.flash('success').toString();
-	res.locals.error = req.flash('error').toString();
-	next()
+    res.locals.user = req.session.user;
+    res.locals.success = req.flash('success').toString();
+    res.locals.error = req.flash('error').toString();
+    next();
 });
 
 router(app);
 
 app.use((req, res, next) => {
-	const error = new Error('404 NOT FOUND');
-	error.status = 404;
-	next(error)
+    const error = new Error('404 NOT FOUND');
+    error.status = 404;
+    next(error);
 });
 
 app.use((err, req, res, next) => {
-	res.status(err.status || 500);
-	res.render('error', {
-		title: 'error',
-		message: err
-	});
+    res.status(err.status || 500);
+    res.render('error', {
+        title: 'error',
+        message: err
+    });
 });
 
 app.listen(config.port, () => {
-	console.log(`server is running on ${config.port}`);
+    console.log(`server is running on ${config.port}`);
 });

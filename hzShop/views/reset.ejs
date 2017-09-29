@@ -3,20 +3,20 @@
     <nav aria-label="breadcrumb" role="navigation">
         <ol class="breadcrumb">
             <li class="breadcrumb-item"><a href="/">主页</a></li>
-            <li class="breadcrumb-item active" aria-current="page"><%= title%></li>
+            <li class="breadcrumb-item active" aria-current="page"><%= title %></li>
         </ol>
     </nav>
-    <h5 class="text-info text-center"><%= title%></h5>
-    <% if (success) {%>
+    <h5 class="text-info text-center"><%= title %></h5>
+    <% if (success) { %>
     <div class="alert alert-success" role="alert">
         <%= success %>
     </div>
-    <%}%>
-    <% if (error) {%>
+    <% } %>
+    <% if (error) { %>
     <div class="alert alert-danger" role="alert">
         <%= error %>
     </div>
-    <%}%>
+    <% } %>
     <form class="mx-auto col-sm-4" method="post">
         <div class="form-group">
             <label for="password">密码：</label>

@@ -1,16 +1,16 @@
 <%- include('header') %>
 
 <article class="container">
-    <% if (success) {%>
+    <% if (success) { %>
     <div class="alert alert-success" role="alert">
         <%= success %>
     </div>
-    <%}%>
-    <% if (error) {%>
+    <% } %>
+    <% if (error) { %>
     <div class="alert alert-danger" role="alert">
         <%= error %>
     </div>
-    <%}%>
+    <% } %>
     <header class="row">
         <aside class="col nav-link">
             欢迎光临，亲爱的
@@ -52,7 +52,7 @@
         </tr>
         </thead>
         <tbody>
-        <% cartList.forEach(function(list){ if(!list.cStatus) {%>
+        <% cartList.forEach(function(list){ if(!list.cStatus) { %>
         <tr class="cart-list-tr">
             <th scope="row" class="align-middle">
                 <input type="checkbox" class="cart-list_check" data-id="<%= list._id %>">
@@ -67,7 +67,7 @@
             </td>
             <td class="align-middle">
 		      <span class="cart-list_price">
-		      	<%= list.cPrice  %>
+		      	<%= list.cPrice %>
 		      </span>
             </td>
             <td class="align-middle">

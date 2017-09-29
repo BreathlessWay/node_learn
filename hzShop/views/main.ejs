@@ -1,16 +1,16 @@
 <%- include('header') %>
 <article class="container">
-    <% if (success) {%>
+    <% if (success) { %>
     <div class="alert alert-success" role="alert">
         <%= success %>
     </div>
-    <%}%>
-    <% if (error) {%>
+    <% } %>
+    <% if (error) { %>
     <div class="alert alert-danger" role="alert">
         <%= error %>
     </div>
-    <%}%>
-    <% if (user) {%>
+    <% } %>
+    <% if (user) { %>
     <header class="row">
         <aside class="col nav-link">
             欢迎光临，亲爱的
@@ -24,7 +24,7 @@
             <a class="nav-link" href="/logout">退出</a>
         </nav>
     </header>
-    <%} else {%>
+    <% } else { %>
     <aside class="float-right my-2">
         <a href="/login">登陆</a> &nbsp;&nbsp; <a href="/register">注册</a>
     </aside>
@@ -38,13 +38,13 @@
     </nav>
 
     <section class="row">
-        <% commodityList.forEach(function(list,index){ %>
+        <% commodityList.forEach(function(list, index){ %>
         <div class="col-md-3 mb-4" data-key="<%= index %>">
             <div class="card">
-                <% if( list.imgSrc ) {%>
+                <% if( list.imgSrc ) { %>
                 <img class="card-img-top" src=<%= list.imgSrc %> alt=<%= list.name %> >
-                <% } else {%>
-                <img class="card-img-top" src="/img/default.png" alt=<%= list.name %> >
+                <% } else { %>
+                <img class="card-img-top" src="/img/default.png" alt=<%= list.name %>>
                 <% } %>
                 <div class="card-body">
                     <h4 class="card-title text-truncate">
@@ -68,27 +68,27 @@
     </section>
 </article>
 <script type="text/javascript" charset="utf-8">
-  window.onload = function () {
-    var oAddCart = document.querySelectorAll('.addCart');
-    for (var i = 0, len = oAddCart.length; i < len; i++) {
-      (function (i) {
-        oAddCart[i].onclick = function (e) {
-          var id = e.target.getAttribute('data-id');
-          var xmlhttprequest = new XMLHttpRequest();
-          xmlhttprequest.open('POST', '/', true);
-          xmlhttprequest.setRequestHeader('Content-type', 'application/json;charset=UTF-8');  // 添加http头，发送信息至服务器时内容编码类型
-          xmlhttprequest.onreadystatechange = function () {
-            if (xmlhttprequest.readyState == 4) {
-              if (xmlhttprequest.status == 200 || xmlhttprequest.status == 304) {  // 304未修改
-                alert(xmlhttprequest.response);
-              } else {
-                alert(xmlhttprequest.status + '  ' + xmlhttprequest.statusText);
-              }
-            }
-          };
-          xmlhttprequest.send(JSON.stringify({id: id}));
-        };
-      })(i);
-    }
-  };
+    window.onload = function () {
+        var oAddCart = document.querySelectorAll('.addCart');
+        for (var i = 0, len = oAddCart.length; i < len; i++) {
+            (function (i) {
+                oAddCart[i].onclick = function (e) {
+                    var id = e.target.getAttribute('data-id');
+                    var xmlhttprequest = new XMLHttpRequest();
+                    xmlhttprequest.open('POST', '/', true);
+                    xmlhttprequest.setRequestHeader('Content-type', 'application/json;charset=UTF-8');  // 添加http头，发送信息至服务器时内容编码类型
+                    xmlhttprequest.onreadystatechange = function () {
+                        if (xmlhttprequest.readyState == 4) {
+                            if (xmlhttprequest.status == 200 || xmlhttprequest.status == 304) {  // 304未修改
+                                alert(xmlhttprequest.response);
+                            } else {
+                                alert(xmlhttprequest.status + '  ' + xmlhttprequest.statusText);
+                            }
+                        }
+                    };
+                    xmlhttprequest.send(JSON.stringify({id: id}));
+                };
+            })(i);
+        }
+    };
 </script><%- include('footer') %>
