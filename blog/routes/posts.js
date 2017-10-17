@@ -3,58 +3,61 @@ const router = new Router();
 const {checkLogin} = require('../middlewares/check');
 // modal
 const PostModal = require('../lib/post');
+const UserModal = require('../lib/user');
 // moment
 const moment = require('moment');
 //获取文章列表
 router.get('/', (req, res, next) => {
     let nav = [];
     let posts = [];
-    PostModal.find({}, (err, data) => {
-        if (err) {
-            req.flash('err', err || '数据库查询失败');
-            return res.redirect('/posts');
-        }
-        data.forEach(list => {
-            const json = {};
-            json.title = list.title;
-            json.content = list.content;
-            json.pv = list.pv;
-            json.comments = list.comments;
-            json.create_at = moment(list.create_at).format('YYYY-MM-DD HH:mm:ss');
-            json.avatar = req.session.user.avatar;
-            posts.push(json);
+    PostModal.find({})
+        .populate({path: 'author', select: 'avatar'})
+        .exec((err, data) => {
+            if (err) {
+                req.flash('err', err || '数据库查询失败');
+                return res.redirect('/posts');
+            }
+            const posts = [];
+            data.forEach(list => {
+                const json = {};
+                json.title = list.title;
+                json.content = list.content;
+                json.pv = list.pv;
+                json.comments = list.comments;
+                json.create_at = moment(list.create_at).format('YYYY-MM-DD HH:mm:ss');
+                json.avatar = list.author.avatar;
+                posts.push(json);
+            });
+            if (!req.session.user) {
+                nav = [
+                    {
+                        title: '注册',
+                        link: '/signup'
+                    }, {
+                        title: '登陆',
+                        link: '/signin'
+                    }
+                ];
+            } else {
+                nav = [
+                    {
+                        title: '个人主页',
+                        link: '/'
+                    }, {
+                        title: '发表文章',
+                        link: '/posts/create'
+                    }, {
+                        title: '退出',
+                        link: '/signout'
+                    }
+                ];
+            }
+            res.render('posts', {
+                title: '文章列表',
+                nav,
+                posts
+            });
         });
-        if (!req.session.user) {
-            nav = [
-                {
-                    title: '注册',
-                    link: '/signup'
-                }, {
-                    title: '登陆',
-                    link: '/signin'
-                }
-            ];
-        } else {
-            nav = [
-                {
-                    title: '个人主页',
-                    link: '/'
-                }, {
-                    title: '发表文章',
-                    link: '/posts/create'
-                }, {
-                    title: '退出',
-                    link: '/signout'
-                }
-            ];
-        }
-        res.render('posts', {
-            title: '文章列表',
-            nav,
-            posts
-        });
-    });
-
 });
 
 //发表文章页
