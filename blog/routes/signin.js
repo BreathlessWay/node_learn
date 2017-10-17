@@ -41,7 +41,7 @@ router.post('/', checkNotLogin, (req, res, next) => {
             req.flash('error', '密码输入错误');
             return res.redirect('/signin');
         }
-        req.session.user = req.body.username;
+        req.session.user = data;
         req.flash('success', '登陆成功');
         res.redirect('/posts');
     });
