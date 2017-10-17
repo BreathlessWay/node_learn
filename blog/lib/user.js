@@ -4,6 +4,6 @@ module.exports = Modal('user', {
     name: {type: String},
     password: {type: String},
     avatar: {type: String},
-    gender: {type: String, enum: ['男', '女']},
+    gender: {type: String, enum: ['m', 'f', 'x']},
     bio: {type: String}
 });

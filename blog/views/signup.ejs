@@ -1,6 +1,6 @@
 <%- include('header') %>
 <section class="row">
-    <form class="col-6 mx-auto" method="post">
+    <form class="col-6 mx-auto" method="post" enctype="multipart/form-data">
         <div class="form-group">
             <label for="username">用户名：</label>
             <input type="text" class="form-control" id="username" name="username" placeholder="用户名">
@@ -17,8 +17,9 @@
         <div class="form-group">
             <label for="sex">性别：</label>
             <select class="form-control" id="sex" name="sex">
-                <option>男</option>
-                <option>女</option>
+                <option value="m">男</option>
+                <option value="f">女</option>
+                <option value="x">保密</option>
             </select>
         </div>
         <div class="form-group">

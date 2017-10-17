@@ -4,6 +4,7 @@ const session = require('express-session');
 const MongoStore = require('connect-mongo')(session);
 const flash = require('connect-flash');
 const favicon = require('serve-favicon');
+const bodyParser = require('body-parser');
 const config = require('./config/default');
 const routes = require('./routes/index');
 const pkg = require('../package.json');
@@ -22,6 +23,11 @@ app.use(express.static(path.join(__dirname, 'public')));
 //设置ico
 app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
 
+// 表单数据格式化
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({
+    extended: false
+}));
 //session 中间件会在 req 上添加 session 对象，即 req.session 初始值为 {}，当我们登录后设置 req.session.user = 用户信息，返回浏览器的头信息中会带上 set-cookie 将 session id 写到浏览器 cookie 中，那么该用户下次请求时，通过带上来的 cookie 中的 session id 我们就可以查找到该用户，并将用户信息保存到 req.session.user。
 app.use(session({
     name: config.session.key,// 设置 cookie 中保存 session id 的字段名称
@@ -68,7 +74,20 @@ app.use((err, req, res, next) => {
     res.status(err.status || 500);
     res.render('error', {
         title: 'error',
-        message: err
+        message: err,
+        nav: [
+            {
+                title: '主页',
+                link: '/'
+            },
+            {
+                title: '注册',
+                link: '/signup'
+            }, {
+                title: '登陆',
+                link: '/signin'
+            }
+        ]
     });
 });
 
