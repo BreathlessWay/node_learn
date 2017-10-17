@@ -1,17 +1,18 @@
 <%- include('header') %>
 <section class="row">
     <ul class="list-unstyled col-6 mx-auto">
+        <% posts.forEach(function(list){ %>
         <li class="media pb-3 mb-3 border border-top-0 border-left-0 border-right-0">
-            <img class="rounded  col-2 img-fluid" src="/img/1.jpeg" alt="Generic placeholder image">
+            <img class="rounded  col-2 img-fluid" src="<%= list.avatar %>" alt="Generic placeholder image">
             <div class="media-body col-10">
-                <h5 class="mt-0 mb-1">List-based media object</h5>
+                <h5 class="mt-0 mb-1"><%= list.title %></h5>
                 <p>
-                    Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque ante sollicitudin. Cras purus odio, vestibulum in vulputate at, tempus viverra turpis. Fusce condimentum nunc ac nisi vulputate fringilla. Donec lacinia congue felis in faucibus.
+                    <%= list.content %>
                 </p>
                 <div class="row text-secondary">
                     <p class="col">2015-10-15 10:55:30</p>
                     <div class="col text-right">
-                        浏览(5) 留言(10)
+                        浏览(<%= list.pv %>) 留言(<%= list.comments.length %>)
                         <% if (user){ %>
                         <div class="dropdown d-inline-block">
                             <a href="javascript:;" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="text-secondary">
@@ -27,6 +28,7 @@
                 </div>
             </div>
         </li>
+        <% }) %>
     </ul>
 </section>
 <%- include('footer') %>
