@@ -2,7 +2,7 @@
 <article class="row">
     <section class="col-6 mx-auto">
         <div class="media ">
-            <img class="rounded  col-2 img-fluid" src="<%= post.author.avatar %>" alt="Generic placeholder image">
+            <img class="rounded  col-2 img-fluid" src="<%= post.author.avatar %>" alt="<%= post.author.name %>">
             <div class="media-body col-10">
                 <h5 class="mt-0 mb-1"><%= post.title %></h5>
                 <p>
@@ -31,22 +31,24 @@
         <h5 class="text-center">留言</h5>
         <hr>
         <ul class="list-unstyled">
+            <% post.comments.forEach(function(list){ %>
             <li class="media pb-3 mb-3 border border-top-0 border-left-0 border-right-0">
-                <img class="rounded  col-2 img-fluid" src="/img/1.jpeg" alt="Generic placeholder image">
+                <img class="rounded  col-2 img-fluid" src="<%= list.author.avatar %>" alt="<%= list.author.name %>">
                 <div class="media-body col-10">
                     <div class="mt-0 d-flex justify-content-between">
                         <p>
-                            <span class="font-weight-bold">张三</span>
+                            <span class="font-weight-bold"><%= list.author.name %></span>
                             &nbsp;&nbsp;
-                            <span class="text-secondary">2015-10-22 10:30:20</span>
+                            <span class="text-secondary"><%= list.create_at %></span>
                         </p>
-                        <% if (user && user._id == post.author._id){ %>
-                        <a href="/">删除</a>
+                        <% if (user && user._id == list.author._id){ %>
+                        <a href="/posts/<%= post._id %>/comment/<%= list._id %>/remove">删除</a>
                         <% } %>
                     </div>
-                    Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque ante sollicitudin. Cras purus odio, vestibulum in vulputate at, tempus viverra turpis. Fusce condimentum nunc ac nisi vulputate fringilla. Donec lacinia congue felis in faucibus.
+                    <%= list.content %>
                 </div>
             </li>
+            <% }) %>
         </ul>
         <% if (user){ %>
         <form method="post" action="/posts/<%= post._id %>/comment">

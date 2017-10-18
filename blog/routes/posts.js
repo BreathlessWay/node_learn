@@ -6,6 +6,8 @@ const PostModal = require('../lib/post');
 const CommentModal = require('../lib/comment');
 // moment
 const moment = require('moment');
+// q
+const Q = require('q');
 //获取文章列表
 router.get('/', (req, res, next) => {
     const condition = req.query.author ? {author: req.query.author} : {};
@@ -135,21 +137,34 @@ router.post('/', checkLogin, (req, res, next) => {
 
 //文章详情
 router.get('/:postId', (req, res, next) => {
-    PostModal.findOneAndUpdate({_id: req.params.postId}, {$inc: {pv: 1}})
-        .populate({path: 'author'})
-        .exec((err, data) => {
-            if (err) {
-                req.flash('error', '数据库查询失败');
-                return res.redirect('/posts');
-            }
-            const post = {};
-            post._id = data._id;
-            post.author = data.author;
-            post.title = data.title;
-            post.content = data.content;
-            post.pv = data.pv + 1;
-            post.create_at = moment(data.create_at).format('YYYY-MM-DD HH:mm:ss');
-            post.comments = data.comments;
+    Q.all([
+        CommentModal.find({postId: req.params.postId})
+            .populate({path: 'author'})
+            .exec(),
+        PostModal.findOneAndUpdate({_id: req.params.postId}, {$inc: {pv: 1}}, {new: true})
+            .populate({path: 'author'})
+            .exec()
+    ])
+        .then(data => {
+            const doc = data[1];
+            const comments = data[0];
+            const post = {
+                comments: []
+            };
+            post._id = doc._id;
+            post.author = doc.author;
+            post.content = doc.content;
+            post.pv = doc.pv;
+            post.create_at = moment(doc.create_at).format('YYYY-MM-DD HH:mm:ss');
+            comments.forEach(list => {
+                const json = {};
+                json._id = list._id;
+                json.content = list.content;
+                json.postId = list.postId;
+                json.create_at = moment(list.create_at).format('YYYY-MM-DD HH:mm:ss');
+                json.author = list.author;
+                post.comments.push(json);
+            });
             res.render('post', {
                 title: '文章详情',
                 nav: req.session.user ? [
@@ -177,6 +192,10 @@ router.get('/:postId', (req, res, next) => {
                 ],
                 post
             });
+        })
+        .catch(err => {
+            req.flash('error', err.toString() || '数据库查询失败');
+            return res.redirect('/posts');
         });
 });
 
@@ -287,7 +306,24 @@ router.post('/:postId/comment', checkLogin, (req, res, next) => {
 
 //删除留言
 router.get('/:postId/comment/:commentId/remove', checkLogin, (req, res, next) => {
-    res.end('ff');
+    CommentModal.findOne({postId: req.params.postId, _id: req.params.commentId}, (err, data) => {
+        if (err) {
+            req.flash('error', '数据库查询失败');
+            return res.redirect('/posts');
+        }
+        if (data.author.toString() !== req.session.user._id.toString()) {
+            req.flash('error', '权限不足');
+            return res.redirect(`/posts/${req.params.postId}`);
+        }
+        CommentModal.findOneAndRemove({postId: req.params.postId, _id: req.params.commentId}, (err, data) => {
+            if (err) {
+                req.flash('error', '评论删除失败');
+                return res.redirect(`/posts/${req.params.postId}`);
+            }
+            req.flash('success', '评论删除成功');
+            return res.redirect(`/posts/${req.params.postId}`);
+        });
+    });
 });
 
 module.exports = router;
