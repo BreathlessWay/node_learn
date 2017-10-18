@@ -3,7 +3,7 @@ const router = new Router();
 const {checkLogin} = require('../middlewares/check');
 // modal
 const PostModal = require('../lib/post');
-const UserModal = require('../lib/user');
+const CommentModal = require('../lib/comment');
 // moment
 const moment = require('moment');
 //获取文章列表
@@ -262,7 +262,27 @@ router.get('/:postId/remove', checkLogin, (req, res, next) => {
 
 //发布留言
 router.post('/:postId/comment', checkLogin, (req, res, next) => {
-    res.end('ff');
+    const content = req.body.comment;
+    if (!content.length) {
+        req.flash('error', '请输入评论内容');
+        return res.redirect(`/posts/${req.params.postId}`);
+    }
+    const comment = {
+        author: req.session.user._id,
+        postId: req.params.postId,
+        content,
+        create_at: Date.now()
+    };
+    const commentData = new CommentModal(comment);
+    commentData.save()
+        .then(() => {
+            req.flash('success', '发表评论成功');
+            return res.redirect(`/posts/${req.params.postId}`);
+        })
+        .catch(err => {
+            req.flash('error', err.toString() || '发表评论成功');
+            return res.redirect(`/posts/${req.params.postId}`);
+        });
 });
 
 //删除留言

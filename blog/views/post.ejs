@@ -40,7 +40,7 @@
                             &nbsp;&nbsp;
                             <span class="text-secondary">2015-10-22 10:30:20</span>
                         </p>
-                        <% if (user){ %>
+                        <% if (user && user._id == post.author._id){ %>
                         <a href="/">删除</a>
                         <% } %>
                     </div>
@@ -49,7 +49,7 @@
             </li>
         </ul>
         <% if (user){ %>
-        <form method="post" action="/">
+        <form method="post" action="/posts/<%= post._id %>/comment">
             <div class="form-group">
                 <label for="comment"></label>
                 <textarea class="form-control" id="comment" rows="3" name="comment" placeholder="评论内容"></textarea>
