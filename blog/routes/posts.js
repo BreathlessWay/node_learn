@@ -44,9 +44,6 @@ router.get('/', (req, res, next) => {
             } else {
                 nav = [
                     {
-                        title: '个人主页',
-                        link: '/'
-                    }, {
                         title: '发表文章',
                         link: '/posts/create'
                     }, {
@@ -74,9 +71,6 @@ router.get('/create', checkLogin, function (req, res, next) {
         nav: [
             {
                 title: '主页',
-                link: '/'
-            }, {
-                title: '个人主页',
                 link: '/'
             }, {
                 title: '退出',
@@ -172,9 +166,6 @@ router.get('/:postId', (req, res, next) => {
                         title: '主页',
                         link: '/'
                     }, {
-                        title: '个人主页',
-                        link: '/'
-                    }, {
                         title: '退出',
                         link: '/signout'
                     }
@@ -215,9 +206,6 @@ router.get('/:postId/edit', checkLogin, (req, res, next) => {
             nav: [
                 {
                     title: '主页',
-                    link: '/'
-                }, {
-                    title: '个人主页',
                     link: '/'
                 }, {
                     title: '退出',
