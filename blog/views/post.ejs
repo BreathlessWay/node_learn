@@ -2,7 +2,7 @@
 <article class="row">
     <section class="col-6 mx-auto">
         <div class="media ">
-            <img class="rounded  col-2 img-fluid" src="<%= post.author.avatar%>" alt="Generic placeholder image">
+            <img class="rounded  col-2 img-fluid" src="<%= post.author.avatar %>" alt="Generic placeholder image">
             <div class="media-body col-10">
                 <h5 class="mt-0 mb-1"><%= post.title %></h5>
                 <p>
@@ -12,14 +12,14 @@
                     <p class="col"><%= post.create_at %></p>
                     <div class="col text-right">
                         浏览(<%= post.pv %>) 留言(<%= post.comments.length %>)
-                        <% if (user){ %>
+                        <% if (user && user._id == post.author._id){ %>
                         <div class="dropdown d-inline-block">
                             <a href="javascript:;" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="text-secondary">
                                 +
                             </a>
                             <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                <a class="dropdown-item" href="/">编辑</a>
-                                <a class="dropdown-item" href="/">删除</a>
+                                <a class="dropdown-item" href="/posts/<%= post._id %>/edit">编辑</a>
+                                <a class="dropdown-item" href="/posts/<%= post._id %>/remove">删除</a>
                             </div>
                         </div>
                         <% } %>

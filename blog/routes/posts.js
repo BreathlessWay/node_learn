@@ -182,17 +182,82 @@ router.get('/:postId', (req, res, next) => {
 
 //编辑文章
 router.get('/:postId/edit', checkLogin, (req, res, next) => {
-    res.end('ff');
+    PostModal.findOne({_id: req.params.postId}, (err, data) => {
+        if (err) {
+            req.flash('error', '数据库查询失败');
+            return res.redirect('/posts');
+        }
+        if (data.author.toString() !== req.session.user._id.toString()) {
+            req.flash('error', '权限不足');
+            return res.redirect('/posts');
+        }
+        res.render('edit', {
+            title: '编辑文章',
+            nav: [
+                {
+                    title: '主页',
+                    link: '/'
+                }, {
+                    title: '个人主页',
+                    link: '/'
+                }, {
+                    title: '退出',
+                    link: '/signout'
+                }
+            ],
+            post: data
+        });
+    });
+
 });
 
 //更新文章
 router.post('/:postId/edit', checkLogin, (req, res, next) => {
-    res.end('ff');
+    const title = req.body.title;
+    const content = req.body.content;
+
+    // 校验参数
+    try {
+        if (!title.length) {
+            throw new Error('请填写标题');
+        }
+        if (!content.length) {
+            throw new Error('请填写内容');
+        }
+    } catch (e) {
+        req.flash('error', e.message);
+        return res.redirect('back');
+    }
+    PostModal.findOneAndUpdate({_id: req.params.postId}, {$set: {title, content}}, (err, data) => {
+        if (err) {
+            req.flash('error', '文章编辑失败');
+            return res.redirect(`/posts/${req.params.postId}/edit`);
+        }
+        req.flash('success', '文章编辑成功');
+        res.redirect(`/posts`);
+    });
 });
 
 //删除文章
 router.get('/:postId/remove', checkLogin, (req, res, next) => {
-    res.end('ff');
+    PostModal.findOne({_id: req.params.postId}, (err, data) => {
+        if (err) {
+            req.flash('error', '数据库查询失败');
+            return res.redirect('/posts');
+        }
+        if (data.author.toString() !== req.session.user._id.toString()) {
+            req.flash('error', '权限不足');
+            return res.redirect('/posts');
+        }
+        PostModal.findOneAndRemove({_id: req.params.postId}, (err, data) => {
+            if (err) {
+                req.flash('error', '文章删除失败');
+                return res.redirect(`/posts`);
+            }
+            req.flash('success', '文章删除成功');
+            res.redirect(`/posts`);
+        });
+    });
 });
 
 //发布留言
