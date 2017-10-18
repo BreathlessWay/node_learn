@@ -8,7 +8,9 @@ const bodyParser = require('body-parser');
 const config = require('./config/default');
 const routes = require('./routes/index');
 const pkg = require('../package.json');
-
+// 日志
+const winston = require('winston');
+const expressWinston = require('express-winston');
 const app = express();
 
 //设置模板
@@ -59,8 +61,32 @@ app.use((req, res, next) => {
     next();
 });
 
+// 正常请求的日志
+app.use(expressWinston.logger({
+    transports: [
+        new (winston.transports.Console)({
+            json: true,
+            colorize: true
+        }),
+        new winston.transports.File({
+            filename: path.join(__dirname, './logs/success.log')
+        })
+    ]
+}));
 //设置路由
 routes(app);
+// 错误请求的日志
+app.use(expressWinston.errorLogger({
+    transports: [
+        new winston.transports.Console({
+            json: true,
+            colorize: true
+        }),
+        new winston.transports.File({
+            filename: path.join(__dirname, './logs/error.log')
+        })
+    ]
+}));
 
 //处理404错误
 app.use((req, res, next) => {

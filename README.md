@@ -5,13 +5,31 @@
 3. supervisor 自动刷新服务器
 
 # Project:
-### hzShop
+### [hzShop](http://www.hubwiz.com/course/549a704f88dba0136c371703/)
     1. npm install 安装依赖模块
     2. 启动mongodb数据库
     3. npm run shop 启动项目
     4. 访问http://localhost:3000
 > 本项目依赖mongodb，所以需要先启动数据库
 
-> MD5（单向散列算法）：输入任意长度的信息，经过处理，输出为128位的信息（数字指纹）；不同的输入得到的不同的结果（唯一性）；根据128位的输出结果不可能反推出输入的信息（不可逆）。 
+### [N-blog](https://github.com/nswbmw/N-blog)
+    1. npm install 安装依赖模块
+    2. 启动mongodb数据库
+    3. npm run blog 启动项目
+    4. 访问http://localhost:3000
+> 本项目依赖mongodb，所以需要先启动数据库
+
+>
+    node加密通过crypto模块
+    const crypto = require('crypto');
+    const md5 = crypto.createHash('md5');
+    md5.update(password);
+    const psd = md5.digest('hex');
+    console.log(psd) //加密后的密码
+    MD5（单向散列算法）：输入任意长度的信息，经过处理，输出为128位的信息（数字指纹）；不同的输入得到的不同的结果（唯一性）；根据128位的输出结果不可能反推出输入的信息（不可逆）。
+>
 
 > [mongoose 的表关联 ](http://blog.csdn.net/hellochenlu/article/details/50467563)
+
+> TODO
+[慕课网](http://www.imooc.com/learn/75)
