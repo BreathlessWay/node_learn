@@ -5,3 +5,7 @@ body, html {
 .dropdown-menu {
     min-width: 0;
 }
+
+.no_underline:hover {
+    text-decoration: none;
+}

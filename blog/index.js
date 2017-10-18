@@ -71,35 +71,16 @@ app.use((req, res, next) => {
 
 //路由错误收集处理
 app.use((err, req, res, next) => {
-    let nav = req.session.user ? [
-        {
-            title: '主页',
-            link: '/'
-        }, {
-            title: '发表文章',
-            link: '/posts/create'
-        }, {
-            title: '退出',
-            link: '/signout'
-        }
-    ] : [
-        {
-            title: '主页',
-            link: '/'
-        },
-        {
-            title: '注册',
-            link: '/signup'
-        }, {
-            title: '登陆',
-            link: '/signin'
-        }
-    ];
     res.status(err.status || 500);
     res.render('error', {
         title: 'error',
         message: err,
-        nav: nav
+        nav: [
+            {
+                title: '主页',
+                link: '/'
+            }
+        ]
     });
 });
 

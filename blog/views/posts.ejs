@@ -3,17 +3,21 @@
     <ul class="list-unstyled col-6 mx-auto">
         <% posts.forEach(function(list){ %>
         <li class="media pb-3 mb-3 border border-top-0 border-left-0 border-right-0">
-            <img class="rounded  col-2 img-fluid" src="<%= list.avatar %>" alt="Generic placeholder image">
+            <a href="/posts?author=<%= list.author._id %>" class="col-2">
+                <img class="rounded img-fluid" src="<%= list.author.avatar %>" alt="Generic placeholder image">
+            </a>
             <div class="media-body col-10">
-                <h5 class="mt-0 mb-1"><%= list.title %></h5>
-                <p>
-                    <%= list.content %>
-                </p>
+                <a href="/posts/<%= list._id %>" class="text-dark no_underline">
+                    <h5 class="mt-0 mb-1"><%= list.title %></h5>
+                    <p>
+                        <%= list.content %>
+                    </p>
+                </a>
                 <div class="row text-secondary">
-                    <p class="col">2015-10-15 10:55:30</p>
+                    <p class="col"><%= list.create_at %></p>
                     <div class="col text-right">
                         浏览(<%= list.pv %>) 留言(<%= list.comments.length %>)
-                        <% if (user){ %>
+                        <% if (user && user._id == list.author._id){ %>
                         <div class="dropdown d-inline-block">
                             <a href="javascript:;" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="text-secondary">
                                 +

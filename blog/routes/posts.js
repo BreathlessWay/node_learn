@@ -8,24 +8,25 @@ const UserModal = require('../lib/user');
 const moment = require('moment');
 //获取文章列表
 router.get('/', (req, res, next) => {
-    let nav = [];
-    let posts = [];
-    PostModal.find({})
+    const condition = req.query.author ? {author: req.query.author} : {};
+    PostModal.find(condition)
         .populate({path: 'author', select: 'avatar'})
         .exec((err, data) => {
             if (err) {
                 req.flash('err', err || '数据库查询失败');
                 return res.redirect('/posts');
             }
+            let nav = [];
             const posts = [];
             data.forEach(list => {
                 const json = {};
+                json._id = list._id;
                 json.title = list.title;
                 json.content = list.content;
                 json.pv = list.pv;
                 json.comments = list.comments;
                 json.create_at = moment(list.create_at).format('YYYY-MM-DD HH:mm:ss');
-                json.avatar = list.author.avatar;
+                json.author = list.author;
                 posts.push(json);
             });
             if (!req.session.user) {
@@ -52,6 +53,10 @@ router.get('/', (req, res, next) => {
                     }
                 ];
             }
+            req.query.author && nav.unshift({
+                title: '主页',
+                link: '/'
+            });
             res.render('posts', {
                 title: '文章列表',
                 nav,
@@ -130,21 +135,49 @@ router.post('/', checkLogin, (req, res, next) => {
 
 //文章详情
 router.get('/:postId', (req, res, next) => {
-    res.render('post', {
-        title: '文章详情',
-        nav: [
-            {
-                title: '主页',
-                link: '/'
-            }, {
-                title: '个人主页',
-                link: '/'
-            }, {
-                title: '退出',
-                link: '/signout'
+    PostModal.findOneAndUpdate({_id: req.params.postId}, {$inc: {pv: 1}})
+        .populate({path: 'author'})
+        .exec((err, data) => {
+            if (err) {
+                req.flash('error', '数据库查询失败');
+                return res.redirect('/posts');
             }
-        ]
-    });
+            const post = {};
+            post._id = data._id;
+            post.author = data.author;
+            post.title = data.title;
+            post.content = data.content;
+            post.pv = data.pv + 1;
+            post.create_at = moment(data.create_at).format('YYYY-MM-DD HH:mm:ss');
+            post.comments = data.comments;
+            res.render('post', {
+                title: '文章详情',
+                nav: req.session.user ? [
+                    {
+                        title: '主页',
+                        link: '/'
+                    }, {
+                        title: '个人主页',
+                        link: '/'
+                    }, {
+                        title: '退出',
+                        link: '/signout'
+                    }
+                ] : [
+                    {
+                        title: '主页',
+                        link: '/'
+                    }, {
+                        title: '登陆',
+                        link: '/signin'
+                    }, {
+                        title: '注册',
+                        link: '/signup'
+                    }
+                ],
+                post
+            });
+        });
 });
 
 //编辑文章

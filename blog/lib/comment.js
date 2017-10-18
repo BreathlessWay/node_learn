@@ -1,8 +1,6 @@
 const Modal = require('./modal');
 const mongoose = require('./mongoose');
 const Schema = mongoose.Schema;
-const user = require('./user');
-const posts = require('./post');
 
 module.exports = Modal('comment', {
     commenter: {type: Schema.Types.ObjectId, ref: 'user'},

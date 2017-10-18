@@ -2,16 +2,16 @@
 <article class="row">
     <section class="col-6 mx-auto">
         <div class="media ">
-            <img class="rounded  col-2 img-fluid" src="/img/1.jpeg" alt="Generic placeholder image">
+            <img class="rounded  col-2 img-fluid" src="<%= post.author.avatar%>" alt="Generic placeholder image">
             <div class="media-body col-10">
-                <h5 class="mt-0 mb-1">List-based media object</h5>
+                <h5 class="mt-0 mb-1"><%= post.title %></h5>
                 <p>
-                    Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque ante sollicitudin. Cras purus odio, vestibulum in vulputate at, tempus viverra turpis. Fusce condimentum nunc ac nisi vulputate fringilla. Donec lacinia congue felis in faucibus.
+                    <%= post.content %>
                 </p>
                 <div class="row text-secondary">
-                    <p class="col">2015-10-15 10:55:30</p>
+                    <p class="col"><%= post.create_at %></p>
                     <div class="col text-right">
-                        浏览(5) 留言(10)
+                        浏览(<%= post.pv %>) 留言(<%= post.comments.length %>)
                         <% if (user){ %>
                         <div class="dropdown d-inline-block">
                             <a href="javascript:;" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="text-secondary">
