@@ -19,6 +19,10 @@
     4. 访问http://localhost:3000
 > 本项目依赖mongodb，所以需要先启动数据库
 
+从mongodb中取出数据时格式化得方法
+
+`create_at: {type: Date, default: Date.now, get: v => moment(v).format('YYYY-MM-DD HH:mm')}`
+
 >
     node加密通过crypto模块
     const crypto = require('crypto');

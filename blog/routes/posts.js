@@ -4,33 +4,22 @@ const {checkLogin} = require('../middlewares/check');
 // modal
 const PostModal = require('../lib/post');
 const CommentModal = require('../lib/comment');
-// moment
-const moment = require('moment');
 // q
 const Q = require('q');
 //获取文章列表
 router.get('/', (req, res, next) => {
     const condition = req.query.author ? {author: req.query.author} : {};
-    PostModal.find(condition)
-        .populate({path: 'author', select: 'avatar'})
+    PostModal
+        .find(condition)
+        .populate('author')
+        .populate('comments')
         .exec((err, data) => {
             if (err) {
                 req.flash('err', err || '数据库查询失败');
                 return res.redirect('/posts');
             }
             let nav = [];
-            const posts = [];
-            data.forEach(list => {
-                const json = {};
-                json._id = list._id;
-                json.title = list.title;
-                json.content = list.content;
-                json.pv = list.pv;
-                json.comments = list.comments;
-                json.create_at = moment(list.create_at).format('YYYY-MM-DD HH:mm:ss');
-                json.author = list.author;
-                posts.push(json);
-            });
+            const posts = data;
             if (!req.session.user) {
                 nav = [
                     {
@@ -142,23 +131,8 @@ router.get('/:postId', (req, res, next) => {
         .then(data => {
             const doc = data[1];
             const comments = data[0];
-            const post = {
-                comments: []
-            };
-            post._id = doc._id;
-            post.author = doc.author;
-            post.content = doc.content;
-            post.pv = doc.pv;
-            post.create_at = moment(doc.create_at).format('YYYY-MM-DD HH:mm:ss');
-            comments.forEach(list => {
-                const json = {};
-                json._id = list._id;
-                json.content = list.content;
-                json.postId = list.postId;
-                json.create_at = moment(list.create_at).format('YYYY-MM-DD HH:mm:ss');
-                json.author = list.author;
-                post.comments.push(json);
-            });
+            const post = doc;
+            post.comments = comments;
             res.render('post', {
                 title: '文章详情',
                 nav: req.session.user ? [
@@ -282,9 +256,15 @@ router.post('/:postId/comment', checkLogin, (req, res, next) => {
     };
     const commentData = new CommentModal(comment);
     commentData.save()
-        .then(() => {
-            req.flash('success', '发表评论成功');
-            return res.redirect(`/posts/${req.params.postId}`);
+        .then((data) => {
+            PostModal.findOneAndUpdate({_id: req.params.postId}, {$push: {comments: data._id}}, (err) => {
+                if (err) {
+                    req.flash('error', '发表评论失败');
+                    return res.redirect(`/posts/${req.params.postId}`);
+                }
+                req.flash('success', '发表评论成功');
+                return res.redirect(`/posts/${req.params.postId}`);
+            });
         })
         .catch(err => {
             req.flash('error', err.toString() || '发表评论成功');
